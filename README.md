@@ -1,6 +1,4 @@
 # ap-cli
-mock api
-based on koa2
 
 [![NPM version](https://img.shields.io/npm/v/brick.js.svg?style=flat)](https://www.npmjs.org/package/brick.js)
 
