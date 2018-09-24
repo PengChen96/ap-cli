@@ -1,5 +1,5 @@
 # ap-cli
 
-[![NPM version](https://img.shields.io/npm/v/brick.js.svg?style=flat)](https://www.npmjs.org/package/brick.js)
+[![NPM version](https://img.shields.io/npm/v/brick.js.svg?style=flat)](https://www.npmjs.com/package/ap-cli)
 
-[![Build Status](https://travis-ci.org/brick-js/brick.js.svg?branch=master)](https://travis-ci.org/brick-js/brick.js)
+[![Build Status](https://travis-ci.org/brick-js/brick.js.svg?branch=master)](https://www.npmjs.com/package/ap-cli)
