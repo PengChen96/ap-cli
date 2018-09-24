@@ -7,7 +7,7 @@
     "ap-cli": "bin/app.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "dev": "node server/index.js",
     "dev1": "cross-env NODE_ENV=development node server/index.js"
   },
@@ -23,5 +23,8 @@
     "koa-router": "^7.4.0",
     "koa2-cors": "^2.0.6",
     "shelljs": "^0.8.2"
+  },
+  "devDependencies": {
+    "mocha": "5.2.0"
   }
 }
