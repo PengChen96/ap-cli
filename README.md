@@ -4,9 +4,9 @@
 [![npm version](https://badge.fury.io/js/ap-cli.svg)](http://badge.fury.io/js/ap-cli)
 [![Build Status](https://travis-ci.org/PengChen96/ap-cli.svg?branch=master)](https://travis-ci.org/PengChen96/ap-cli)
 
-# usage
+### usage
 
-### data.json
+##### data.json
 ```
 [
   {
@@ -26,9 +26,9 @@
 ]
 ```
 
-### 运行
+##### 运行
 ```
 $ ap-cli -m data.json
 ```
-### 查看接口
+##### 查看接口
 http://localhost:3000/api/get/index
