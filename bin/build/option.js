@@ -8,6 +8,7 @@ const path = require('path');
 program.version('packages.version1.0.0')
   .allowUnknownOption(true)
   .option('-a, --api [des]', 'api mock cli')
+  .option('-r, --regexp [regexp]', 'Using regular matching file names')
   .option('-m, --mock [path]', 'mock api')
   .option('-p, --port [port]', 'set port')
 

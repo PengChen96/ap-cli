@@ -3,6 +3,7 @@ const Koa = require('koa');
 const router = require('koa-router')();
 const cors = require('koa2-cors');
 const cfs = require('../common/cfs');
+const utils = require('../common/utils');
 const config = require('../config');
 // commander options
 const options = require('../bin/build/option.js');
@@ -18,7 +19,7 @@ app.use(async (ctx, next) => {
 
 // add url-route:
 router.get('/', async (ctx, next) => {
-  ctx.response.body = `<h1>当前启动的文件${ options.mock }</h1>`;
+  ctx.response.body = `<h1>当前启动的文件${config.PROJ}${ options.mock || '' }</h1>`;
 });
 // add router middleware:
 app.use(router.routes());
@@ -35,8 +36,15 @@ cfs.readdir(`${config.PROJ}`).then((result) => {
     // 异步读取文件内容
     readFileInitRouter(`${options.mock}`);
   } else { // 执行当前目录下的文件
-    console.log(`扫描到 ${result} 这${result.length}个文件`);
-    result.forEach((fileName) => {
+    let filterResult = result;
+    // 正则匹配文件
+    if (options.regexp) {
+      // 转换为正则
+      const regexp = utils.strToRegExp(options.regexp);
+      filterResult = result.filter((item) => regexp.test(item));
+    }
+    console.log(`扫描到 ${filterResult} 这${filterResult.length}个文件`);
+    filterResult.forEach((fileName) => {
       // 异步读取文件内容
       readFileInitRouter(fileName);
     });

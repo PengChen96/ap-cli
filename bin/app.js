@@ -19,13 +19,28 @@ if (commander.api) {
   console.log('api:', commander.api);
 }
 
-// $ ap-cli -m [path]
+/* 
+ * $ ap-cli -r [regexp]
+ * 正则匹配当前目录要进行mock的文件
+ */
+if (commander.regexp) {
+  params += ` --regexp ${commander.regexp}`;
+  console.log('regexp:', commander.regexp);
+}
+
+/* 
+ * $ ap-cli -m [path]
+ * 指定当前目录要进行mock的文件
+ */
 if (commander.mock) {
   params += ` --mock ${commander.mock}`;
   console.log('mock:', commander.mock);
 }
 
-// $ ap-cli -p [port]
+/* 
+ * $ ap-cli -p [port]
+ * 指定mock的api端口（默认3000）
+ */
 if (commander.port) {
   params += ` --port ${commander.port}`;
   console.log('port:', commander.port);
