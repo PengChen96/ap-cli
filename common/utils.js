@@ -16,6 +16,17 @@ const strToRegExp = (regStr) => {
   return regexp;
 };
 
+/*
+ * 获取当前系统时间
+ */
+const getCurrentTime = () => {
+  const myDate = new Date();
+  const date = myDate.toLocaleDateString()
+  const time = myDate.toLocaleTimeString();
+  return `${ date } ${ time }`;
+}
+
 module.exports = {
-  strToRegExp
+  strToRegExp,
+  getCurrentTime
 };

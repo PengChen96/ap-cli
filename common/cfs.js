@@ -43,8 +43,22 @@ const readFile = (path) => {
   });
 };
 
+// 写入文件（追加方式）
+const appendFile = (path, text) => {
+  return new Promise((resolve, reject) => {
+    fs.appendFile(path, text, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+};
+
 module.exports = {
   cwatch,
   readdir,
-  readFile
+  readFile,
+  appendFile
 };
