@@ -32,3 +32,10 @@ $ ap-cli -m data.json
 ```
 ##### 查看接口
 http://localhost:3000/api/get/index
+
+### 参数
+|#|缩写|完整|说明|
+|--|----|------|------|
+|1|-r|--regexp [regexp]|通过正则匹配需要mock的文件|
+|2|-m|--mock [path]|指定mock的文件|
+|3|-p|--port [port]|指定mock的端口|
