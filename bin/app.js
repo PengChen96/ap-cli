@@ -5,11 +5,11 @@ const commander = require('./build/option.js');
 const config = require('../config');
 const Logger = require('../common/logger');
 
-Logger.TRACE('****** API MOCK CLI ******');
-Logger.DEBUG('****** API MOCK CLI ******');
-Logger.INFO('****** API MOCK CLI ******');
-Logger.WARN('****** API MOCK CLI ******');
-Logger.ERROR('****** API MOCK CLI ******');
+// Logger.TRACE('****** API MOCK CLI ******');
+// Logger.DEBUG('****** API MOCK CLI ******');
+// Logger.INFO('****** API MOCK CLI ******');
+// Logger.WARN('****** API MOCK CLI ******');
+// Logger.ERROR('****** API MOCK CLI ******');
 Logger.SUCCESS('****** API MOCK CLI ******');
 
 Logger.INFO('------------------------------------------↓↓↓', 'app.js');
