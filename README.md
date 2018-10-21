@@ -4,8 +4,12 @@
 [![npm version](https://badge.fury.io/js/ap-cli.svg)](http://badge.fury.io/js/ap-cli)
 [![Build Status](https://travis-ci.org/PengChen96/ap-cli.svg?branch=master)](https://travis-ci.org/PengChen96/ap-cli)
 
-### usage
+### install
+```
+$ npm install ap-cli -g
+```
 
+### usage
 ##### data.json
 ```
 [
