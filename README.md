@@ -43,3 +43,8 @@ http://localhost:3000/api/get/index
 |1|-r|--regexp [regexp]|通过正则匹配需要mock的文件|
 |2|-m|--mock [path]|指定mock的文件|
 |3|-p|--port [port]|指定mock的端口|
+
+### TODO
+- [x] 正则匹配指定要mock的文件
+- [] 通过js生成接口数据
+- [] 通过swagger文件mock数据

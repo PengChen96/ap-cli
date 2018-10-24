@@ -52,6 +52,15 @@ if (commander.port) {
   Logger.INFO(`port: ${ commander.port }`);
 }
 
+/* 
+ * $ ap-cli -sw [swagger]
+ * 指定mock的swagger文件
+ */
+if (commander.swagger) {
+  params += ` --swagger ${commander.swagger}`;
+  Logger.INFO(`swagger: ${ commander.swagger }`);
+}
+
 Logger.INFO('------------------------------------------↑↑↑');
 
 // const argv = process.argv.splice(2, process.argv.length - 1);

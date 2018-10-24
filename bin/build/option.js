@@ -14,6 +14,7 @@ program.version('packages.version1.0.0')
   .option('-a, --api [des]', 'api mock cli')
   .option('-r, --regexp [regexp]', 'Using regular matching file names')
   .option('-m, --mock [path]', 'mock api')
+  .option('-s, --swagger [file]', 'mock api by swagger file')
   .option('-p, --port [port]', 'set port');
 
 program

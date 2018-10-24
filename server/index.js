@@ -69,3 +69,15 @@ const readFileInitRouter = (fileName) => {
     Logger.ERROR(error);
   });
 };
+
+if (options.swagger) {
+  Logger.DEBUG(options.swagger);
+  const fileName = options.swagger;
+  cfs.readFile(`${config.PROJ}/${fileName}`).then((result) => {
+    const resp = JSON.parse(result);
+    console.log(resp);
+    console.log(resp.definitions.SbFhbzctzfqjnBaDeleteVO.properties);
+  }).catch((error) => {
+    Logger.ERROR(error);
+  });
+}
