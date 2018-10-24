@@ -46,5 +46,5 @@ http://localhost:3000/api/get/index
 
 ### TODO
 - [x] 正则匹配指定要mock的文件
-- [] 通过js生成接口数据
-- [] 通过swagger文件mock数据
+- [ ] 通过js生成接口数据
+- [ ] 通过swagger文件mock数据
