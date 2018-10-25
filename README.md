@@ -12,7 +12,7 @@ $ npm install ap-cli -g
 ### usage
 #### 1. 通过json方式
 ##### data.json
-```
+```json
 [
   {
     "URI": "/api/get/index",
@@ -40,7 +40,7 @@ http://localhost:3000/api/get/index
 
 #### 2. 通过js方式生成数据
 ##### data.js
-```
+```javascript
 const interface01 = () => {
   const data = {
     "URI": "/api/get/interface",
