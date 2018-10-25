@@ -10,6 +10,7 @@ $ npm install ap-cli -g
 ```
 
 ### usage
+#### 1. 通过json方式
 ##### data.json
 ```
 [
@@ -37,6 +38,51 @@ $ ap-cli -m data.json
 ##### 查看接口
 http://localhost:3000/api/get/index
 
+#### 2. 通过js方式生成数据
+##### data.js
+```
+const interface01 = () => {
+  const data = {
+    "URI": "/api/get/interface",
+    "method": "get",
+    "response": {
+      "user": [],
+      ...
+    }
+  }
+  for (let i = 0; i < 100; i++) {
+    data.response.user.push({ id: i, name: `user${i}` })
+  }
+  return data
+};
+
+const interface02 = () => {
+  const data = {
+    "URI": "/api/post/interface",
+    "method": "post",
+    "response": {
+      "user": [],
+      ...
+    }
+  }
+  for (let i = 0; i < 100; i++) {
+    data.response.user.push({ id: i, name: `user${i}` })
+  }
+  return data
+};
+
+module.exports = {
+  interface01,
+  interface02
+};
+```
+##### 运行
+```
+$ ap-cli -m data.js
+```
+##### 查看接口
+http://localhost:3000/api/get/interface
+
 ### 参数
 |#|缩写|完整|说明|
 |--|----|------|------|
@@ -46,5 +92,5 @@ http://localhost:3000/api/get/index
 
 ### TODO
 - [x] 正则匹配指定要mock的文件
-- [ ] 通过js生成接口数据
+- [x] 通过js方式生成接口数据
 - [ ] 通过swagger文件mock数据

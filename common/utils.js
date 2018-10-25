@@ -24,9 +24,22 @@ const getCurrentTime = () => {
   const date = myDate.toLocaleDateString()
   const time = myDate.toLocaleTimeString();
   return `${ date } ${ time }`;
-}
+};
+
+/*
+ * 获取文件名后缀
+ * @param fileName 文件名  example: "exam.js"
+ */
+const getFileNameSuffix = (fileName) => {
+  let suffix = '';
+  if (fileName) {
+    suffix = fileName.split('.').reverse()[0];
+  }
+  return suffix;
+};
 
 module.exports = {
   strToRegExp,
-  getCurrentTime
+  getCurrentTime,
+  getFileNameSuffix
 };
