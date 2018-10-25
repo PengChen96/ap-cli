@@ -14,11 +14,11 @@ const COLOR = require('./color');
  * @param tips 描述提示
  * @param fileName 文件名
  */
-const appendLogText = (level, text, tips = '', fileName = 'log.text') => {
+const appendLogText = (level, text, tips = '', fileName = 'log.txt') => {
   // 获取当前系统时间
   const currentTime = utils.getCurrentTime();
   // 文件路径
-  const filePath = `${ config.ROOT }${ fileName }`;
+  const filePath = `${ config.PROJ }/${ fileName }`;
   // 文本内容
   let content = `${ level }--${ currentTime }\n`;
   content += `----${ text }--${ tips }\n\n`;
