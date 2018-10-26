@@ -115,9 +115,32 @@ if (options.swagger) {
   const fileName = options.swagger;
   cfs.readFile(`${PROJ}/${fileName}`).then((result) => {
     const resp = JSON.parse(result);
-    console.log(resp);
-    console.log(resp.definitions.SbFhbzctzfqjnBaDeleteVO.properties);
+    // console.log(resp);
+    // console.log(resp.definitions.SbFhbzctzfqjnBaDeleteVO.properties);
+    formatData(resp);
   }).catch((error) => {
     Logger.ERROR(error);
   });
+}
+
+const formatData = (sw) => {
+  var interfaceArr = [];
+  var paths = sw.paths;
+  for (var uri in paths) {
+    var method = Object.keys(paths[uri])[0];
+    var schema = paths[uri][method].responses[200].schema;
+    var arr = schema.$ref.split('/');
+    arr.shift();
+    var respData = sw;
+    arr.forEach(function(item) {
+      respData = respData[item];
+    });
+    var itemObj = {
+      URI: uri,
+      method: method,
+      response: ''
+    };
+    interfaceArr.push(itemObj);
+  }
+  console.log(interfaceArr, 'final');
 }
