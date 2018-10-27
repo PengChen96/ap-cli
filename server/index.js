@@ -117,13 +117,17 @@ if (options.swagger) {
     const resp = JSON.parse(result);
     // console.log(resp);
     // console.log(resp.definitions.SbFhbzctzfqjnBaDeleteVO.properties);
-    formatData(resp);
+    const filePath = `${PROJ}/${fileName.split('.')[0]}_new.json`;
+    const content = formatInterfaceData(resp);
+    cfs.writeFile(filePath, JSON.stringify(content)).catch((error) => {
+      Logger.ERROR(`writeFile -- ${error}`);
+    });
   }).catch((error) => {
     Logger.ERROR(error);
   });
 }
 
-const formatData = (sw) => {
+const formatInterfaceData = (sw) => {
   var interfaceArr = [];
   var paths = sw.paths;
   for (var uri in paths) {
@@ -135,12 +139,42 @@ const formatData = (sw) => {
     arr.forEach(function(item) {
       respData = respData[item];
     });
+    var response = formatResponseData(respData);
     var itemObj = {
       URI: uri,
       method: method,
-      response: ''
+      response: response
     };
     interfaceArr.push(itemObj);
   }
-  console.log(interfaceArr, 'final');
+  console.log(JSON.stringify(interfaceArr), 'final');
+  return interfaceArr;
+}
+const formatResponseData = (data) => {
+  const response = createType(data.type);
+  createProp(response, data.properties);
+  return response;
+};
+const createProp = (target, props) => {
+  for (var prop in props) {
+    if (Object.keys(props[prop]).length === 1) {
+      target[prop] = createType(props[prop].type);
+    } else {
+      if (prop !== 'type') {
+        target[prop] = createType(props[prop].type);
+        createProp(target[prop], props[prop]);
+      }
+    }
+  }
+  return target;
+};
+createType = (type) => {
+  let data = 'type1---';
+  if (type === 'object') {
+    data = {};
+  }
+  if (type === 'array') {
+    data = ['array--'];
+  }
+  return data;
 }

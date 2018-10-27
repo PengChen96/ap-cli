@@ -56,9 +56,23 @@ const appendFile = (path, text) => {
   });
 };
 
+// 写入文件（覆盖方式）
+const writeFile = (path, text) => {
+  return new Promise((resolve, reject) => {
+    fs.writeFile(path, text, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+};
+
 module.exports = {
   cwatch,
   readdir,
   readFile,
-  appendFile
+  appendFile,
+  writeFile
 };
