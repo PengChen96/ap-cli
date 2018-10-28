@@ -50,7 +50,7 @@ const appendFile = (path, text) => {
       if (err) {
         reject(err);
       } else {
-        resolve(data);
+        resolve(true);
       }
     });
   });
@@ -63,7 +63,7 @@ const writeFile = (path, text) => {
       if (err) {
         reject(err);
       } else {
-        resolve(data);
+        resolve(true);
       }
     });
   });

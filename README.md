@@ -84,11 +84,11 @@ $ ap-cli -m data.js
 http://localhost:3000/api/get/interface
 
 ### 参数
-|#|缩写|完整|说明|
-|--|----|------|------|
-|1|-r|--regexp [regexp]|通过正则匹配需要mock的文件|
-|2|-m|--mock [path]|指定mock的文件|
-|3|-p|--port [port]|指定mock的端口|
+|#|缩写|完整|默认|说明|
+|--|----|------|------|------|
+|1|-r|--regexp [regexp]|无|通过正则匹配需要mock的文件|
+|2|-m|--mock [fileName]|'all'|[fileName]当前目录下要mock的文件名，[all]默认当前目录下的所有文件|
+|3|-p|--port [port]|3000|指定mock的端口|
 
 ### TODO
 - [x] 正则匹配指定要mock的文件

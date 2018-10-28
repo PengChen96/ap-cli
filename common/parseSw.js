@@ -33,7 +33,7 @@ const formatSwaggerData = (swaggerData) => {
     };
     interfaceData.push(itemObj);
   }
-  console.log(JSON.stringify(interfaceData), 'final');
+  //console.log(JSON.stringify(interfaceData), 'final');
   return interfaceData;
 }
 /**
