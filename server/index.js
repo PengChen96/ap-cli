@@ -6,6 +6,7 @@ const cors = require('koa2-cors');
 const cfs = require('../common/cfs');
 const utils = require('../common/utils');
 const Logger = require('../common/logger');
+const parseSw = require('../common/parseSw');
 const config = require('../config');
 // commander options
 const options = require('../bin/build/option.js');
@@ -115,66 +116,14 @@ if (options.swagger) {
   const fileName = options.swagger;
   cfs.readFile(`${PROJ}/${fileName}`).then((result) => {
     const resp = JSON.parse(result);
-    // console.log(resp);
-    // console.log(resp.definitions.SbFhbzctzfqjnBaDeleteVO.properties);
+    // 要写入的新文件
     const filePath = `${PROJ}/${fileName.split('.')[0]}_new.json`;
-    const content = formatInterfaceData(resp);
+    // 要写入的内容
+    const content = parseSw.formatSwaggerData(resp);
     cfs.writeFile(filePath, JSON.stringify(content)).catch((error) => {
       Logger.ERROR(`writeFile -- ${error}`);
     });
   }).catch((error) => {
     Logger.ERROR(error);
   });
-}
-
-const formatInterfaceData = (sw) => {
-  var interfaceArr = [];
-  var paths = sw.paths;
-  for (var uri in paths) {
-    var method = Object.keys(paths[uri])[0];
-    var schema = paths[uri][method].responses[200].schema;
-    var arr = schema.$ref.split('/');
-    arr.shift();
-    var respData = sw;
-    arr.forEach(function(item) {
-      respData = respData[item];
-    });
-    var response = formatResponseData(respData);
-    var itemObj = {
-      URI: uri,
-      method: method,
-      response: response
-    };
-    interfaceArr.push(itemObj);
-  }
-  console.log(JSON.stringify(interfaceArr), 'final');
-  return interfaceArr;
-}
-const formatResponseData = (data) => {
-  const response = createType(data.type);
-  createProp(response, data.properties);
-  return response;
-};
-const createProp = (target, props) => {
-  for (var prop in props) {
-    if (Object.keys(props[prop]).length === 1) {
-      target[prop] = createType(props[prop].type);
-    } else {
-      if (prop !== 'type') {
-        target[prop] = createType(props[prop].type);
-        createProp(target[prop], props[prop]);
-      }
-    }
-  }
-  return target;
-};
-createType = (type) => {
-  let data = 'type1---';
-  if (type === 'object') {
-    data = {};
-  }
-  if (type === 'array') {
-    data = ['array--'];
-  }
-  return data;
 }
