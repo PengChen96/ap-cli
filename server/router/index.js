@@ -5,7 +5,9 @@ const router = require('koa-router')();
 const cfs = require('../../common/cfs');
 const utils = require('../../common/utils');
 const Logger = require('../../common/logger');
-const swagger = require('./swagger/index');
+const Swagger = require('./swagger/index');
+const Js = require('./js/index');
+const Json = require('./json/index');
 const config = require('../../config');
 // commander options
 const options = require('../../bin/build/option.js');
@@ -17,6 +19,21 @@ const { ROOT, PROJ, FILE_WHITE_LIST } = config;
 router.get('/', async (ctx, next) => {
   ctx.response.body = `<h1>当前启动的文件${PROJ}${ options.mock || '' }</h1>`;
 });
+
+
+/**
+ * 初始化路由（接口） 【js, json】
+ * @param fileName 文件名  example: exam.js，exam.json
+ */
+const initRouter = (fileName) => {
+  const suffix = utils.getFileNameSuffix(fileName);
+  if (suffix === 'js') {
+    Js.requireJsInitRouter(fileName, router);
+  } else {
+    Json.readFileInitRouter(fileName, router);
+  }
+};
+
 /**
  * 扫描文件添加Api
  * @param options 命令行参数
@@ -66,7 +83,7 @@ const scanFileAddInterface = (options) => {
 const startRun = () => {
   if (options.swagger) {
     // 转换swagger文件为接口模板文件
-    swagger.convertToJsonTpl(options.swagger);
+    Swagger.convertToJsonTpl(options.swagger);
   }
   if (options.mock) {
     // 启动 扫描文件添加Api
@@ -76,54 +93,5 @@ const startRun = () => {
   }
 };
 startRun();
-
-
-/**
- * 初始化路由（接口） 【js, json】
- * @param fileName 文件名  example: exam.js，exam.json
- */
-const initRouter = (fileName) => {
-  const suffix = utils.getFileNameSuffix(fileName);
-  if (suffix === 'js') {
-    requireJsInitRouter(fileName);
-  } else {
-    readFileInitRouter(fileName);
-  }
-};
-/**
- * 通过读取文件内容 初始化路由
- * @param fileName 文件名  example: exam.json
- */
-const readFileInitRouter = (fileName) => {
-  cfs.readFile(`${PROJ}/${fileName}`).then((result) => {
-    const resp = JSON.parse(result);
-    Logger.SUCCESS(`[${fileName}] 添加 ${resp.length} 个接口`);
-    resp.forEach((item) => {
-      // router
-      Logger.TRACE(`[${fileName}] init router 【${item.URI}】`);
-      router[item.method](item.URI, async (ctx, next) => {
-        ctx.response.body = item.response;
-      });
-    });
-  }).catch((error) => {
-    Logger.ERROR(`${fileName}--readFileInitRouter--${error}`);
-  });
-};
-/**
- * 通过引入JS 初始化路由
- * @param fileName 文件名  example: exam.js
- */
-const requireJsInitRouter = (fileName) => {
-  // 引入js文件
-  const FunObj = require(`${PROJ}/${fileName}`);
-  Logger.SUCCESS(`[${fileName}] 添加 ${Object.keys(FunObj).length} 个接口`);
-  for (const funName in FunObj) {
-    const item = FunObj[funName](); // 接口数据
-    Logger.TRACE(`[${fileName}] init router 【${item.URI}】`);
-    router[item.method](item.URI, async (ctx, next) => {
-      ctx.response.body = item.response;
-    });
-  }
-};
 
 module.exports = router;

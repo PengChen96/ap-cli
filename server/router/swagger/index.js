@@ -1,5 +1,6 @@
 /* global require */
 /* global module */
+
 const cfs = require('../../../common/cfs');
 const Logger = require('../../../common/logger');
 const parseSwagger = require('./parseSwagger');
