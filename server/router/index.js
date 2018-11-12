@@ -5,7 +5,7 @@ const router = require('koa-router')();
 const cfs = require('../../common/cfs');
 const utils = require('../../common/utils');
 const Logger = require('../../common/logger');
-const parseSw = require('../../common/parseSw');
+const swagger = require('./swagger/index');
 const config = require('../../config');
 // commander options
 const options = require('../../bin/build/option.js');
@@ -59,32 +59,14 @@ const scanFileAddInterface = (options) => {
     Logger.ERROR(error);
   });
 };
-// swagger解析 TODO
-const parseSwagger = (fileName) => {
-  cfs.readFile(`${PROJ}/${fileName}`).then((result) => {
-    const resp = JSON.parse(result);
-    // 要写入的新文件
-    const filePath = `${PROJ}\\${fileName.split('.')[0]}_new.json`;
-    // 要写入的内容
-    const content = parseSw.formatSwaggerData(resp);
-    cfs.writeFile(filePath, JSON.stringify(content)).then((data) => {
-      if (data) {
-        Logger.SUCCESS(`生成${filePath}成功！`);
-      }
-    }).catch((error) => {
-      Logger.ERROR(`writeFile -- ${error}`);
-    });
-  }).catch((error) => {
-    Logger.ERROR(error);
-  });
-};
+
 /**
  * 启动服务
  */
 const startRun = () => {
   if (options.swagger) {
-    // 解析swagger文件
-    parseSwagger(options.swagger);
+    // 转换swagger文件为接口模板文件
+    swagger.convertToJsonTpl(options.swagger);
   }
   if (options.mock) {
     // 启动 扫描文件添加Api
