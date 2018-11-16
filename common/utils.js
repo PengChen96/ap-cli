@@ -27,6 +27,20 @@ const getCurrentTime = () => {
 };
 
 /*
+ * 获取当前系统时间
+ */
+const getSystemTime = () => {
+  const myDate = new Date();
+  const Year = myDate.getFullYear();
+  const Month = myDate.getMonth() + 1;
+  const Day = myDate.getDay();
+  const Hour = myDate.getHours();
+  const Minute = myDate.getMinutes();
+  const Second = myDate.getSeconds();
+  return `${ Year }${ Month }${ Day }${ Hour }${ Minute }${ Second }`;
+};
+
+/*
  * 获取文件名后缀
  * @param fileName 文件名  example: "exam.js"
  */
@@ -38,8 +52,48 @@ const getFileNameSuffix = (fileName) => {
   return suffix;
 };
 
+// 格式化json数据
+const formatJson = (json) => {
+  var formatted = '',     //转换后的json字符串
+    padIdx = 0,         //换行后是否增减PADDING的标识
+    PADDING = '    ';   //4个空格符
+  /**
+   * 将对象转化为string
+   */
+  if (typeof json !== 'string') {
+    json = JSON.stringify(json);
+  }
+  /**
+   *利用正则类似将{'name':'ccy','age':18,'info':['address':'wuhan','interest':'playCards']}
+   *---> \r\n{\r\n'name':'ccy',\r\n'age':18,\r\n
+         *'info':\r\n[\r\n'address':'wuhan',\r\n'interest':'playCards'\r\n]\r\n}\r\n
+   */
+  json = json.replace(/([\{\}])/g, '\r\n$1\r\n')
+    .replace(/([\[\]])/g, '\r\n$1\r\n')
+    .replace(/(\,)/g, '$1\r\n')
+    .replace(/(\r\n\r\n)/g, '\r\n')
+    .replace(/\r\n\,/g, ',');
+  /**
+   * 根据split生成数据进行遍历，一行行判断是否增减PADDING
+   */
+  (json.split('\r\n')).forEach(function (node, index) {
+    var indent = 0,
+      padding = '';
+    if (node.match(/\{$/) || node.match(/\[$/)) indent = 1;
+    else if (node.match(/\}/) || node.match(/\]/))  padIdx = padIdx !== 0 ? --padIdx : padIdx;
+    else    indent = 0;
+    for (var i = 0; i < padIdx; i++)    padding += PADDING;
+    formatted += padding + node + '\r\n';
+    padIdx += indent;
+    // console.log('index:'+index+',indent:'+indent+',padIdx:'+padIdx+',node-->'+node);
+  });
+  return formatted;
+};
+
 module.exports = {
   strToRegExp,
+  formatJson,
   getCurrentTime,
-  getFileNameSuffix
+  getSystemTime,
+  getFileNameSuffix,
 };
