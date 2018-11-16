@@ -17,11 +17,11 @@ const createMd = (object, fileName = "接口文档.md") => {
   ##### method: ${object.method}
   ##### parameters: 
   \`\`\`
-  ${ utils.formatJson(JSON.stringify(object.parameters)) }
+  ${ utils.formatJson(object.parameters) }
   \`\`\`
   ##### response:
   \`\`\`
-  ${ utils.formatJson(JSON.stringify(object.response)) }
+  ${ utils.formatJson(object.response) }
   \`\`\`
   \n
   `;
@@ -59,7 +59,7 @@ module.exports = {
         "id": 123456,
         "status": "success",
         "userInfo": {
-          "username": "张三"，
+          "username": "张三",
           "age": 18,
           "gender": "男"
         }

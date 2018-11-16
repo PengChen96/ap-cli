@@ -54,9 +54,9 @@ const getFileNameSuffix = (fileName) => {
 
 // 格式化json数据
 const formatJson = (json) => {
-  var formatted = '',     //转换后的json字符串
-    padIdx = 0,         //换行后是否增减PADDING的标识
-    PADDING = '    ';   //4个空格符
+  let formatted = '';     //转换后的json字符串
+  let padIdx = 0;       //换行后是否增减PADDING的标识
+  let PADDING = '    ';   //4个空格符
   /**
    * 将对象转化为string
    */
@@ -76,13 +76,21 @@ const formatJson = (json) => {
   /**
    * 根据split生成数据进行遍历，一行行判断是否增减PADDING
    */
-  (json.split('\r\n')).forEach(function (node, index) {
-    var indent = 0,
-      padding = '';
-    if (node.match(/\{$/) || node.match(/\[$/)) indent = 1;
-    else if (node.match(/\}/) || node.match(/\]/))  padIdx = padIdx !== 0 ? --padIdx : padIdx;
-    else    indent = 0;
-    for (var i = 0; i < padIdx; i++)    padding += PADDING;
+  (json.split('\r\n')).forEach((node, index) => {
+    let indent = 0;
+    let padding = '';
+    if (node.match(/\{$/) || node.match(/\[$/)) {
+      indent = 1;
+    }
+    else if (node.match(/\}/) || node.match(/\]/)) {
+      padIdx = padIdx !== 0 ? --padIdx : padIdx;
+    }
+    else {
+      indent = 0;
+    }
+    for (let i = 0; i < padIdx; i++) {
+      padding += PADDING;
+    }
     formatted += padding + node + '\r\n';
     padIdx += indent;
     // console.log('index:'+index+',indent:'+indent+',padIdx:'+padIdx+',node-->'+node);
