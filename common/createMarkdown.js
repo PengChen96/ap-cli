@@ -7,24 +7,33 @@ const cfs = require('./cfs');
 const utils = require('./utils');
 
 // 生成Markdown接口文档
-const createMd = (object, fileName = "接口文档.md") => {
+const createMd = (item, fileName = "接口文档.md") => {
+  const date = utils.getCurrentDate();
   // 文件路径
-  const filePath = `${ config.PROJ }/${ fileName }`;
+  const filePath = `${ config.PROJ }/${ date }${ fileName }`;
+  const {
+    summary = 'xxx接口', // 接口概述
+    URI = '/', // 接口地址
+    method = 'post', // 接口请求方法
+    parameters = '接口请求参数', // 接口请求参数
+    response = '接口响应数据', // 接口响应数据
+  } = item;
   // 文本内容
   let content = `
-  ### ${object.summary} 
-  ##### urI: ${object.URI}
-  ##### method: ${object.method}
-  ##### parameters: 
-  \`\`\`
-  ${ utils.formatJson(object.parameters) }
-  \`\`\`
-  ##### response:
-  \`\`\`
-  ${ utils.formatJson(object.response) }
-  \`\`\`
-  \n
-  `;
+### ${summary}
+##### URL
+> ${URI}
+##### http请求方式
+> ${method}
+##### 请求参数
+\`\`\`
+${ utils.formatJson(parameters) }
+\`\`\`
+##### 响应数据
+\`\`\`
+${ utils.formatJson(response) }
+\`\`\`
+`;
   // 写入文件（追加方式）
   cfs.appendFile(filePath, content);
 };

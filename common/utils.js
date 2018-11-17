@@ -28,16 +28,21 @@ const getCurrentTime = () => {
 
 /*
  * 获取当前系统时间
+ * @param s1 splice参数1
+ * @param s2 splice参数2
+ * @param sym 连接符
  */
-const getSystemTime = () => {
+const getCurrentDate = (s1 = 0, s2= 3, sym = '') => {
   const myDate = new Date();
   const Year = myDate.getFullYear();
   const Month = myDate.getMonth() + 1;
-  const Day = myDate.getDay();
+  const Day = myDate.getDate();
   const Hour = myDate.getHours();
   const Minute = myDate.getMinutes();
   const Second = myDate.getSeconds();
-  return `${ Year }${ Month }${ Day }${ Hour }${ Minute }${ Second }`;
+  const dateArr = [Year, Month, Day, Hour, Minute, Second];
+  const date = dateArr.splice(s1, s2).join(sym);
+  return date;
 };
 
 /*
@@ -102,6 +107,6 @@ module.exports = {
   strToRegExp,
   formatJson,
   getCurrentTime,
-  getSystemTime,
+  getCurrentDate,
   getFileNameSuffix,
 };

@@ -4,6 +4,7 @@
 const cfs = require('../../../common/cfs');
 const Logger = require('../../../common/logger');
 const Markdown = require('../../../common/createMarkdown');
+const Route = require('../route');
 const config = require('../../../config');
 const { PROJ } = config;
 
@@ -18,18 +19,13 @@ const readFileInitRouter = (fileName, router) => {
     resp.forEach((item) => {
       // 生成markdown接口文档
       Markdown.createMd(item);
+      // 初始化接口
+      Route.init(item, router);
       const {
         summary = 'xxx接口', // 接口概述
         URI = '/', // 接口地址
-        method = 'post', // 接口请求方法
-        parameters = [], // 接口请求参数
-        response = '返回数据', // 接口响应数据
       } = item;
-      // router
       Logger.TRACE(`[${fileName}] init router ${summary}【${URI}】`);
-      router[method](URI, async (ctx, next) => {
-        ctx.response.body = response;
-      });
     });
   }).catch((error) => {
     Logger.ERROR(`${fileName}--readFileInitRouter--${error}`);
