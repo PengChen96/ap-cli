@@ -12,7 +12,7 @@ $ npm install ap-cli -g
 ### usage
 #### 1. 通过json方式
 ##### data.json
-```json
+```
 [
   {
     "summary": "get接口",
