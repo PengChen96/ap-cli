@@ -15,15 +15,19 @@ $ npm install ap-cli -g
 ```json
 [
   {
+    "summary": "get接口",
     "URI": "/api/get/index",
     "method": "get",
+    "parameters": [],
     "response": {
       ...
     }
   },
   {
+    "summary": "post接口",
     "URI": "/api/post/index",
     "method": "post",
+    "parameters": [],
     "response": {
       ...
     }
@@ -43,8 +47,10 @@ http://localhost:3000/api/get/index
 ```javascript
 const interface01 = () => {
   const data = {
+    "summary": "interface01接口",
     "URI": "/api/get/interface",
     "method": "get",
+    "parameters": [],
     "response": {
       "user": [],
       ...
@@ -58,8 +64,10 @@ const interface01 = () => {
 
 const interface02 = () => {
   const data = {
+    "summary": "interface01接口",
     "URI": "/api/post/interface",
     "method": "post",
+    "parameters": [],
     "response": {
       "user": [],
       ...
@@ -90,7 +98,9 @@ http://localhost:3000/api/get/interface
 |2|-m|--mock [fileName]|'all'|[fileName]当前目录下要mock的文件名，[all]默认当前目录下的所有文件|
 |3|-p|--port [port]|3000|指定mock的端口|
 
-### TODO
-- [x] 正则匹配指定要mock的文件
-- [x] 通过js方式生成接口数据
-- [ ] 通过swagger文件mock数据
+<!--### TODO-->
+<!--- [x] 正则匹配指定要mock的文件-->
+<!--- [x] 通过js方式生成接口数据-->
+<!--- [ ] 通过swagger文件mock数据-->
+
+---
