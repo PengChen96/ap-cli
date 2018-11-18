@@ -2,12 +2,12 @@
 /* global require */
 /* global module */
 
-const config = require('../config');
-const cfs = require('./cfs');
-const utils = require('./utils');
+const config = require('../../../config');
+const cfs = require('../../../common/cfs');
+const utils = require('../../../common/utils');
 
 // 生成Markdown接口文档
-const createMd = (item, fileName = "接口文档.md") => {
+const createMd = (itemRouteData, fileName = "接口文档.md") => {
   const date = utils.getCurrentDate();
   // 文件路径
   const filePath = `${ config.PROJ }/${ date }${ fileName }`;
@@ -17,7 +17,7 @@ const createMd = (item, fileName = "接口文档.md") => {
     method = 'post', // 接口请求方法
     parameters = '接口请求参数', // 接口请求参数
     response = '接口响应数据', // 接口响应数据
-  } = item;
+  } = itemRouteData;
   // 文本内容
   let content = `
 ### ${summary}

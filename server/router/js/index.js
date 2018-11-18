@@ -2,7 +2,6 @@
 /* global module */
 
 const Logger = require('../../../common/logger');
-const Markdown = require('../../../common/createMarkdown');
 const Route = require('../route');
 const config = require('../../../config');
 const { PROJ } = config;
@@ -17,16 +16,10 @@ const requireJsInitRouter = (fileName, router) => {
   const FunObj = require(`${PROJ}/${fileName}`);
   Logger.SUCCESS(`[${fileName}] 添加 ${Object.keys(FunObj).length} 个接口`);
   for (const funName in FunObj) {
-    const item = FunObj[funName](); // 接口数据
-    // 生成markdown接口文档
-    Markdown.createMd(item);
+    const itemRouteData = FunObj[funName](); // 接口数据
     // 初始化接口
-    Route.init(item, router);
-    const {
-      summary = 'xxx接口', // 接口概述
-      URI = '/', // 接口地址
-    } = item;
-    Logger.TRACE(`[${fileName}] init router ${summary}【${URI}】`);
+    Route.init(itemRouteData, router);
+    Logger.TRACE(`[${fileName}] init router ${itemRouteData.summary||'xxx接口'}【${itemRouteData.URI||'/'}】`);
   }
 };
 

@@ -3,7 +3,6 @@
 
 const cfs = require('../../../common/cfs');
 const Logger = require('../../../common/logger');
-const Markdown = require('../../../common/createMarkdown');
 const Route = require('../route');
 const config = require('../../../config');
 const { PROJ } = config;
@@ -16,16 +15,10 @@ const readFileInitRouter = (fileName, router) => {
   cfs.readFile(`${PROJ}/${fileName}`).then((result) => {
     const resp = JSON.parse(result);
     Logger.SUCCESS(`[${fileName}] 添加 ${resp.length} 个接口`);
-    resp.forEach((item) => {
-      // 生成markdown接口文档
-      Markdown.createMd(item);
+    resp.forEach((itemRouteData) => {
       // 初始化接口
-      Route.init(item, router);
-      const {
-        summary = 'xxx接口', // 接口概述
-        URI = '/', // 接口地址
-      } = item;
-      Logger.TRACE(`[${fileName}] init router ${summary}【${URI}】`);
+      Route.init(itemRouteData, router);
+      Logger.TRACE(`[${fileName}] init router ${itemRouteData.summary||'xxx接口'}【${itemRouteData.URI||'/'}】`);
     });
   }).catch((error) => {
     Logger.ERROR(`${fileName}--readFileInitRouter--${error}`);
