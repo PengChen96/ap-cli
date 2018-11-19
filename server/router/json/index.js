@@ -18,7 +18,7 @@ const readFileInitRouter = (fileName, router) => {
     resp.forEach((itemRouteData) => {
       // 初始化接口
       Route.init(itemRouteData, router);
-      Logger.TRACE(`[${fileName}] init router ${itemRouteData.summary||'xxx接口'}【${itemRouteData.URI||'/'}】`);
+      Logger.TRACE(`[${fileName}] init router ${itemRouteData.summary||'xxx接口'}【${itemRouteData.url||'/api'}】`);
     });
   }).catch((error) => {
     Logger.ERROR(`${fileName}--readFileInitRouter--${error}`);

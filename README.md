@@ -16,7 +16,7 @@ $ npm install ap-cli -g
 [
   {
     "summary": "get接口",
-    "URI": "/api/get/index",
+    "url": "/api/get/index",
     "method": "get",
     "parameters": [],
     "response": {
@@ -25,7 +25,7 @@ $ npm install ap-cli -g
   },
   {
     "summary": "post接口",
-    "URI": "/api/post/index",
+    "url": "/api/post/index",
     "method": "post",
     "parameters": [],
     "response": {
@@ -48,7 +48,7 @@ http://localhost:3000/api/get/index
 const interface01 = () => {
   const data = {
     "summary": "interface01接口",
-    "URI": "/api/get/interface",
+    "url": "/api/get/interface",
     "method": "get",
     "parameters": [],
     "response": {
@@ -65,7 +65,7 @@ const interface01 = () => {
 const interface02 = () => {
   const data = {
     "summary": "interface01接口",
-    "URI": "/api/post/interface",
+    "url": "/api/post/interface",
     "method": "post",
     "parameters": [],
     "response": {

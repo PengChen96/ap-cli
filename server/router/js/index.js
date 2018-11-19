@@ -19,7 +19,7 @@ const requireJsInitRouter = (fileName, router) => {
     const itemRouteData = FunObj[funName](); // 接口数据
     // 初始化接口
     Route.init(itemRouteData, router);
-    Logger.TRACE(`[${fileName}] init router ${itemRouteData.summary||'xxx接口'}【${itemRouteData.URI||'/'}】`);
+    Logger.TRACE(`[${fileName}] init router ${itemRouteData.summary||'xxx接口'}【${itemRouteData.url||'/api'}】`);
   }
 };
 
