@@ -107,7 +107,7 @@ http://localhost:3000/api/get/interface
 
 ### 模板文件
 #### 示例
-```
+```json
 [
   {
     "summary": "获取用户信息接口json",
