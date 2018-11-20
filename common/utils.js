@@ -87,7 +87,7 @@ const formatJson = (json) => {
     for (let i = 0; i < padIdx; i++) {
       padding += PADDING;
     }
-    formatted += padding + node + '\r\n';
+    formatted += padding + node + '\r';
     padIdx += indent;
     // console.log('index:'+index+',indent:'+indent+',padIdx:'+padIdx+',node-->'+node);
   });

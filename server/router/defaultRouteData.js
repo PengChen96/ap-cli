@@ -11,9 +11,9 @@ const defaultData = {
   // 接口请求方式（重要）
   method: 'get',
   // 接口请求参数
-  parameters: '接口请求参数',
+  parameters: '无',
   // 接口响应数据（重要）
-  response: '接口响应数据',
+  response: '无',
 };
 
 /**
@@ -21,7 +21,8 @@ const defaultData = {
  * @param itemRouteData 读取的单个路由数据
  */
 const defaultSet = (itemRouteData) => {
-  const data = Object.assign(defaultData, itemRouteData);
+  const _defaultData = JSON.parse(JSON.stringify(defaultData));
+  const data = Object.assign(_defaultData, itemRouteData);
   return data
 };
 

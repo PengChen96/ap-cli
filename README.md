@@ -18,7 +18,7 @@ $ npm install ap-cli -g
     "summary": "get接口",
     "url": "/api/get/index",
     "method": "get",
-    "parameters": [],
+    "parameters": {},
     "response": {
       ...
     }
@@ -27,7 +27,7 @@ $ npm install ap-cli -g
     "summary": "post接口",
     "url": "/api/post/index",
     "method": "post",
-    "parameters": [],
+    "parameters": {},
     "response": {
       ...
     }
@@ -50,7 +50,7 @@ const interface01 = () => {
     "summary": "interface01接口",
     "url": "/api/get/interface",
     "method": "get",
-    "parameters": [],
+    "parameters": {},
     "response": {
       "user": [],
       ...
@@ -64,10 +64,10 @@ const interface01 = () => {
 
 const interface02 = () => {
   const data = {
-    "summary": "interface01接口",
+    "summary": "interface02接口",
     "url": "/api/post/interface",
     "method": "post",
-    "parameters": [],
+    "parameters": {},
     "response": {
       "user": [],
       ...
@@ -91,7 +91,7 @@ $ ap-cli -m data.js
 ##### 查看接口
 http://localhost:3000/api/get/interface
 
-### 参数
+### CLI usage
 |#|缩写|完整|默认|说明|
 |--|----|------|------|------|
 |1|-r|--regexp [regexp]|无|通过正则匹配需要mock的文件|
@@ -104,3 +104,69 @@ http://localhost:3000/api/get/interface
 <!--- [ ] 通过swagger文件mock数据-->
 
 ---
+
+### 模板文件
+#### 示例
+```
+[
+  {
+    "summary": "获取用户信息接口json",
+    "url": "/api/post/userinfo",
+    "method": "post",
+    "parameters": {
+      "parsing": true,
+      "child": [
+        {
+          "key": "userid",
+          "type": "string",
+          "required": true,
+          "description": "用户ID"
+        }
+      ]
+    },
+    "response": {
+      "head": {
+        "code": "00000000",
+        "description": "成功",
+        "msg": "success",
+        "time": "2018-11-16 00:00:00",
+        "status": "Y"
+      },
+      "body": {
+        "id": 123456,
+        "status": "success",
+        "userinfo": {
+          "username": "张三",
+          "age": 18,
+          "gender": "男"
+        }
+      }
+    }
+  }
+]
+```
+
+#### 主要属性说明
+# | 字段 | 类型 | 说明 | 默认 | 是否必须 | 备注
+---|------|----|----|----|----|----
+1| url | string | 接口地址 | /api | 是 | 无
+2| method | string | http请求方式 | get | 是 | 无
+3| response | / | 接口响应数据 | 无 | 是 | 无
+4| summary | string | 接口概述 | xxx接口 | 否 | 无
+5| parameters | / | 接口请求参数 | 无 | 否 | 可显示为表格（详见下1-1.parameters属性说明）
+
+##### 1-1. parameters属性说明
+# | 字段 | 类型 | 说明 | 默认 | 是否必须 | 备注
+---|------|----|----|----|----|----
+1| parsing | boolean | 是否解析 | false | 否 | 无
+2| child | object [] | 子节点 | 无 | 否 | 子节点属性（详见1-1-1.child属性说明）
+
+##### 1-1-1. child属性说明
+# | 字段 | 类型 | 说明 | 默认 | 是否必须 
+---|------|----|----|----|----
+1| key | string | 字段名称 | - | 是 
+2| type | string | 字段类型 | string | 是 
+3| description | string | 字段说明 | 无 | 否 
+4| required | boolean | 是否必须 | false | 否 
+5| child | object [] | 子节点数据 | 无 | 否 
+
