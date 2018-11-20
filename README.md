@@ -147,26 +147,26 @@ http://localhost:3000/api/get/interface
 ```
 
 #### 主要属性说明
-# | 字段 | 类型 | 说明 | 默认 | 是否必须 | 备注
----|------|----|----|----|----|----
-1| url | string | 接口地址 | /api | 是 | 无
-2| method | string | http请求方式 | get | 是 | 无
-3| response | / | 接口响应数据 | 无 | 是 | 无
-4| summary | string | 接口概述 | xxx接口 | 否 | 无
-5| parameters | / | 接口请求参数 | 无 | 否 | 可显示为表格（详见下1-1.parameters属性说明）
+| # | 字段 | 类型 | 说明 | 默认 | 是否必须 | 备注 |
+|---|------|----|----|----|----|----|
+|1| url | string | 接口地址 | /api | 是 | 无 |
+|2| method | string | http请求方式 | get | 是 | 无 |
+|3| response | / | 接口响应数据 | 无 | 是 | 无 |
+|4| summary | string | 接口概述 | xxx接口 | 否 | 无 |
+|5| parameters | / | 接口请求参数 | 无 | 否 | 可显示为表格（详见下1-1.parameters属性说明） |
 
 ##### 1-1. parameters属性说明
-# | 字段 | 类型 | 说明 | 默认 | 是否必须 | 备注
----|------|----|----|----|----|----
-1| parsing | boolean | 是否解析 | false | 否 | 无
-2| child | object [] | 子节点 | 无 | 否 | 子节点属性（详见1-1-1.child属性说明）
+| # | 字段 | 类型 | 说明 | 默认 | 是否必须 | 备注 |
+|---|------|----|----|----|----|----|
+|1| parsing | boolean | 是否解析 | false | 否 | 无 |
+|2| child | object [] | 子节点 | 无 | 否 | 子节点属性（详见1-1-1.child属性说明） |
 
 ##### 1-1-1. child属性说明
-# | 字段 | 类型 | 说明 | 默认 | 是否必须 
----|------|----|----|----|----
-1| key | string | 字段名称 | - | 是 
-2| type | string | 字段类型 | string | 是 
-3| description | string | 字段说明 | 无 | 否 
-4| required | boolean | 是否必须 | false | 否 
-5| child | object [] | 子节点数据 | 无 | 否 
+| # | 字段 | 类型 | 说明 | 默认 | 是否必须 |
+|---|------|----|----|----|----|
+|1| key | string | 字段名称 | - | 是 |
+|2| type | string | 字段类型 | string | 是 |
+|3| description | string | 字段说明 | 无 | 否 |
+|4| required | boolean | 是否必须 | false | 否 |
+|5| child | object [] | 子节点数据 | 无 | 否 |
 
