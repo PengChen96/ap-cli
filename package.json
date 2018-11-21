@@ -12,8 +12,8 @@
     "dev1": "cross-env NODE_ENV=development node server/index.js"
   },
   "keywords": [
-    "Koa2",
     "JSON",
+    "swagger",
     "server",
     "fake",
     "REST",
@@ -25,7 +25,8 @@
     "rest",
     "data",
     "dummy",
-    "sandbox"
+    "sandbox",
+    "Koa2"
   ],
   "author": "pc",
   "license": "ISC",
