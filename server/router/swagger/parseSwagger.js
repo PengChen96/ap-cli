@@ -1,74 +1,83 @@
 /**
- * Created by PC on 2018/10/28.
+ * Created by PC on 2018/11/21.
  */
+/* global module */
 
+const modelJS = require('./model');
+
+let GlobalDefinitions = {};
 /**
- * 将swagger.json转换成下面格式的JSON文件
- * {
- *    url: '/api/get/index',
- *    method: 'get',
- *    response: {...}
- * }
- * @param swaggerData swagger.json数据
+ * 遍历swagger数据的paths对象 (return 处理好的json模板数据)
+ * @paths paths对象
  */
-const formatSwaggerData = (swaggerData) => {
-  const interfaceData = [];
-  const { paths } = swaggerData;
-  for (const url in paths) {
-    const method = Object.keys(paths[url])[0];
-    // http状态200的返回数据对象
-    const schema = paths[url][method].responses[200].schema;
-    const arr = schema.$ref.split('/');
-    arr.shift();
-    // 返回数据引用对象
-    let respData = swaggerData;
-    arr.forEach(function(item) {
-      respData = respData[item];
-    });
-    const response = formatResponseData(respData);
-    const itemObj = {
-      url: url,
-      method: method,
-      response: response
-    };
-    interfaceData.push(itemObj);
+const getInterfaceDataArr = (paths) => {
+  const interfaceDataArr = [];
+  // key_url: 接口地址
+  for (let key_url in paths) {
+    // paths[key_url]: "url"对象的数据  example: {"post": {...}}
+    const itemRouteData = getItemRouteData(key_url, paths[key_url]);
+    interfaceDataArr.push(itemRouteData);
   }
-  //console.log(JSON.stringify(interfaceData), 'final');
-  return interfaceData;
-}
-/**
-  * 组成response接口返回数据
-  * @param respDataModel 接口返回数据模型
-  */
-const formatResponseData = (respDataModel) => {
-  const response = createType(respDataModel.type);
-  createProp(response, respDataModel.properties);
-  return response;
+  return interfaceDataArr;
 };
-const createProp = (target, props) => {
-  for (const prop in props) {
-    if (Object.keys(props[prop]).length === 1) {
-      target[prop] = createType(props[prop].type);
-    } else {
-      if (prop !== 'type') {
-        target[prop] = createType(props[prop].type);
-        createProp(target[prop], props[prop]);
-      }
+/**
+ * 读取post对象 （return 单个处理好的接口数据）
+ * @param key_url  接口地址
+ * @param obj  "post"对象or其他  example: {"post": {...}}
+ */
+const getItemRouteData = (key_url, obj) => {
+  let itemRouteData = {};
+  // key_type: 接口请求方式 "post"、"get"等
+  for (let key_type in obj) {
+    // type_data: "post"对象的数据  example: {"tags":[], ...}
+    let type_data = obj[key_type];
+    // 接口概述
+    const { summary } = type_data;
+    // 响应数据
+    let response = makeMockJson(type_data);
+    itemRouteData = {
+      summary: summary,
+      url: key_url,
+      method: key_type,
+      parameters: '无',
+      response: response
     }
   }
-  return target;
+  return itemRouteData;
 };
-createType = (type) => {
-  let data = 'type1---';
-  if (type === 'object') {
-    data = {};
+
+/**
+ *  模拟数据（return response）
+ *  @param type_data "post"对象的数据 example: {"tags":[], ...}
+ */
+const makeMockJson = (type_data) => {
+  let mockJson = {};
+  // example: {"$ref": "#/definitions/apiVO"}
+  let schema = type_data.responses['200'].schema;
+  // schema存在,拿到"#/definitions/apiVO",否则"";
+  let mockJsonKey = schema ? schema['$ref'] : ''; //此数据用于查询数据模型
+  if (mockJsonKey) {
+    let tempkey = modelJS.queryData(mockJsonKey);
+    mockJson = modelJS.dealModel(GlobalDefinitions[tempkey], GlobalDefinitions, tempkey);
+  } else {
+    let model = schema ? schema : type_data.responses['200'];
+    mockJson = modelJS.dealModel(model, GlobalDefinitions);
   }
-  if (type === 'array') {
-    data = ['array--'];
-  }
-  return data;
+  // 目前是只返回response数据
+  return mockJson;
+};
+
+/**
+ * 格式化swagger数据
+ * @param swaggerData swagger数据
+ */
+const formatSwaggerData = (swaggerData) => {
+  GlobalDefinitions = swaggerData.definitions;
+  let paths = swaggerData.paths;
+  const formatted_data = getInterfaceDataArr(paths);
+  return formatted_data;
 };
 
 module.exports = {
   formatSwaggerData
-}
+};

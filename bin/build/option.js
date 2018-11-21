@@ -3,14 +3,16 @@
 /* global process */
 
 const program = require('commander');
+const package = require('../../package');
 // const path = require('path');
 
 /* eslint-disable import/no-dynamic-require */
 // const packages = require(path.resolve(PROJ, 'package.json'));
 // const packages = require('../../package.json');
 
-program.version('packages.version1.0.0')
+program.version(package.version)
   .allowUnknownOption(true)
+  .option('-v, --version', 'output the version number')
   .option('-a, --api [des]', 'api mock cli')
   .option('-r, --regexp [regexp]', 'Using regular matching file names')
   .option('-m, --mock [path]', 'mock api')
