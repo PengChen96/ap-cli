@@ -12,8 +12,20 @@
     "dev1": "cross-env NODE_ENV=development node server/index.js"
   },
   "keywords": [
-    "mock api",
-    "Koa2"
+    "Koa2",
+    "JSON",
+    "server",
+    "fake",
+    "REST",
+    "API",
+    "mock",
+    "mocking",
+    "test",
+    "testing",
+    "rest",
+    "data",
+    "dummy",
+    "sandbox"
   ],
   "author": "pc",
   "license": "ISC",
