@@ -5,21 +5,27 @@
 
 const modelJS = require('./model');
 
-let GlobalDefinitions = {};
+let GlobalSwaggerData = {};
+
 /**
- * 遍历swagger数据的paths对象 (return 处理好的json模板数据)
- * @paths paths对象
+ * 格式化swagger数据
+ * @param swaggerData swagger数据
  */
-const getInterfaceDataArr = (paths) => {
-  const interfaceDataArr = [];
-  // key_url: 接口地址
+const formatSwaggerData = (swaggerData) => {
+  GlobalSwaggerData = swaggerData;
+  // 格式化后的数据数组
+  const formatted_data = [];
+  const { paths } = swaggerData;
+  // 遍历swagger数据的paths对象
   for (let key_url in paths) {
     // paths[key_url]: "url"对象的数据  example: {"post": {...}}
     const itemRouteData = getItemRouteData(key_url, paths[key_url]);
-    interfaceDataArr.push(itemRouteData);
+    formatted_data.push(itemRouteData);
   }
-  return interfaceDataArr;
+  // const formatted_data = getInterfaceDataArr(paths);
+  return formatted_data;
 };
+
 /**
  * 读取post对象 （return 单个处理好的接口数据）
  * @param key_url  接口地址
@@ -33,8 +39,8 @@ const getItemRouteData = (key_url, obj) => {
     let type_data = obj[key_type];
     // 接口概述
     const { summary } = type_data;
-    // 响应数据
-    let response = makeMockJson(type_data);
+    // 格式化 接口响应数据
+    let response = formatResponseData(type_data);
     itemRouteData = {
       summary: summary,
       url: key_url,
@@ -47,35 +53,22 @@ const getItemRouteData = (key_url, obj) => {
 };
 
 /**
- *  模拟数据（return response）
+ *  格式化接口响应数据（return response）
  *  @param type_data "post"对象的数据 example: {"tags":[], ...}
  */
-const makeMockJson = (type_data) => {
-  let mockJson = {};
+const formatResponseData = (type_data) => {
+  let responseData = {};
   // example: {"$ref": "#/definitions/apiVO"}
-  let schema = type_data.responses['200'].schema;
+  const schema = type_data.responses['200'].schema;
   // schema存在,拿到"#/definitions/apiVO",否则"";
-  let mockJsonKey = schema ? schema['$ref'] : ''; //此数据用于查询数据模型
-  if (mockJsonKey) {
-    let tempkey = modelJS.queryData(mockJsonKey);
-    mockJson = modelJS.dealModel(GlobalDefinitions[tempkey], GlobalDefinitions, tempkey);
+  const ref = schema ? schema['$ref'] : ''; //此数据用于查询数据模型
+  if (ref) {
+    responseData = modelJS.dealRef(ref, GlobalSwaggerData);
   } else {
-    let model = schema ? schema : type_data.responses['200'];
-    mockJson = modelJS.dealModel(model, GlobalDefinitions);
+    // example: {"description": "OK"}
+    responseData = 'OK';
   }
-  // 目前是只返回response数据
-  return mockJson;
-};
-
-/**
- * 格式化swagger数据
- * @param swaggerData swagger数据
- */
-const formatSwaggerData = (swaggerData) => {
-  GlobalDefinitions = swaggerData.definitions;
-  let paths = swaggerData.paths;
-  const formatted_data = getInterfaceDataArr(paths);
-  return formatted_data;
+  return responseData;
 };
 
 module.exports = {

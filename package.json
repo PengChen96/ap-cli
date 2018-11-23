@@ -1,7 +1,7 @@
 {
   "name": "ap-cli",
   "version": "1.0.6",
-  "description": "api mock",
+  "description": "mock server CLI",
   "main": "index.js",
   "bin": {
     "ap-cli": "bin/app.js"
@@ -13,20 +13,22 @@
   },
   "keywords": [
     "JSON",
+    "json",
     "swagger",
     "server",
     "fake",
     "REST",
+    "rest",
     "API",
+    "api",
     "mock",
     "mocking",
     "test",
     "testing",
-    "rest",
     "data",
     "dummy",
     "sandbox",
-    "Koa2"
+    "koa2"
   ],
   "author": "pc",
   "license": "ISC",

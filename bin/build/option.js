@@ -14,7 +14,7 @@ program.version(package.version)
   .allowUnknownOption(true)
   .option('-v, --version', 'output the version number')
   .option('-a, --api [des]', 'api mock cli')
-  .option('-m, --mock [file]', 'Mock interface server')
+  .option('-m, --mock [file]', 'Mock interface service')
   .option('-r, --regexp [regexp]', 'Using regular matching file names')
   .option('-s, --swagger [file]', 'Generate the json template file through swagger')
   .option('-p, --port [port]', 'Set port');

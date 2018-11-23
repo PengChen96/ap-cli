@@ -1,71 +1,84 @@
 /* global require */
 /* global module */
 
-
-const queryData = (hash) => {
-  let result = (hash.substring(2, hash.length)).split('/');
-  return result[1];
+/**
+ * 处理$ref （return formatted data）
+ * @param ref   example: "#/definitions/apiVO"
+ * @param swaggerData
+ */
+const dealRef = (ref, swaggerData) => {
+  let result = {};
+  let definitionsVo = queryDataVo(ref, swaggerData);
+  let type = definitionsVo && definitionsVo.type ? definitionsVo.type : '';
+  if (type) {
+    if (type === 'object') {
+      const { properties } = definitionsVo;
+      if (properties) {
+        for (let key in properties) {
+          if (properties[key].type) {
+            result[key] = convertType(properties, key, swaggerData);
+          }
+          /**
+           * 处理 {"data": {"$ref": "#/definitions/VO"} 这种情况
+           */
+          if (properties[key]['$ref']) {
+            result[key] = dealRef(properties[key]['$ref'], swaggerData);
+          }
+        }
+      }
+    }
+  }
+  return result;
 };
 
-//递归替换
-const dealModel = (definitions, GlobalDefinitions, prevKey) => {
-    let result = {};
-    let type = definitions && definitions.type ? definitions.type : '';
-    if (type) {
-        if (type == 'string') {
-            result = 'string';
-        }
-        if (type == 'integer') {
-            result = 0;
-        }
-        if (type == 'number') {
-            result = 0.01;
-        }
-        if (type == 'boolean') {
-            result = false;
-        }
-        if (type == 'object') {
-            if (definitions.properties) {
-                result = definitions.properties;
-                for (let key in result) {
-                    //防止递归数据造成死循环
-                    if (result[key].type && result[key].type == 'array' && result[key].items['$ref'] && (queryData(result[key].items['$ref']) == prevKey)) {
-                        result[key] = {};
-                    } else {
-                        result[key] = dealModel(result[key], GlobalDefinitions, key);
-                    }
-                }
-            } else {
-                result = {};
-            }
-        }
-        if (type == 'array') {
-            let items = definitions.items;
-            if (items.type) {
-                dealModel(items, GlobalDefinitions);
-            } else {
-                let objkey = queryData(definitions.items['$ref']);
-                //防止递归数据造成死循环
-                if (objkey != prevKey) {
-                    result = [dealModel(GlobalDefinitions[objkey], GlobalDefinitions, objkey)];
-                } else {
-                    result = {};
-                }
-            }
-        }
+/**
+ * 返回$ref对应的definitionsVo
+ * @param ref  example: "#/definitions/apiVO"
+ */
+const queryDataVo = (ref, swaggerData) => {
+  const arr = ref.split('/');
+  arr.shift();
+  // 返回数据引用对象
+  let dataVo = swaggerData;
+  arr.forEach(function(item) {
+    dataVo = dataVo[item];
+  });
+  return dataVo;
+};
+
+/**
+ *  根据type转换成假数据
+ */
+const convertType = (properties, key, swaggerData) => {
+  let data = {};
+  const { type, items } = properties[key];
+  if (type == 'string') {
+    data = 'string';
+  }
+  if (type == 'integer') {
+    data = 0;
+  }
+  if (type == 'number') {
+    data = 0.01;
+  }
+  if (type == 'boolean') {
+    data = false;
+  }
+  if (type == 'object') {
+    data = {};
+  }
+  if (type == 'array') {
+    // 最好判断一下这个【$refs】和上一个【$refs】是否一样，避免死循环
+    if (items && items['$ref']) {
+      data = [dealRef(items['$ref'], swaggerData)];
     } else {
-        let goObject = definitions['$ref'] ? definitions['$ref'] : '';
-        if (goObject) {
-            let objkey = queryData(goObject);
-            result = dealModel(GlobalDefinitions[objkey], GlobalDefinitions);
-        } else {
-            result = 'OK';
-        }
+      // 这个情况考虑下 "items": {"type": "object"}
+      data = [];
     }
-    return result;
+  }
+  return data;
 };
 
 module.exports = {
-  queryData,
-  dealModel
+  dealRef
 };

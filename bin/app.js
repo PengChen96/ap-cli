@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/* global require */
+
 const shell = require('shelljs');
 const commander = require('./build/option.js');
 const config = require('../config');
@@ -12,7 +14,7 @@ const Logger = require('../common/logger');
 // Logger.ERROR('****** API MOCK CLI ******');
 Logger.SUCCESS('****** API MOCK CLI ******');
 
-Logger.INFO('------------------------------------------↓↓↓', 'app.js');
+Logger.INFO('------------------------------------------↓↓↓');
 // console.log('commander:', commander);
 // console.log('process.argv:', process.argv);
 Logger.INFO(`PROJ（当前目录）: ${ config.PROJ } `);
@@ -53,8 +55,8 @@ if (commander.port) {
 }
 
 /* 
- * $ ap-cli -sw [swagger]
- * 指定mock的swagger文件
+ * $ ap-cli -s [swagger]
+ * 指定swagger文件生成json模板文件
  */
 if (commander.swagger) {
   params += ` --swagger ${commander.swagger}`;
