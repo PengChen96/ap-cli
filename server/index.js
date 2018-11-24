@@ -21,5 +21,8 @@ app.use(async (ctx, next) => {
 // add router middleware:
 app.use(myRouter.routes());
 
-app.listen(options.port || 3000);
-Logger.SUCCESS(`app started at port ${options.port || 3000}...`);
+if (options.mock) {
+  app.listen(options.port || 3000);
+  Logger.SUCCESS(`app started at port ${options.port || 3000}...`);
+}
+
