@@ -31,7 +31,7 @@
     "koa2"
   ],
   "author": "pc",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "commander": "^2.17.1",
     "koa": "^2.5.2",
