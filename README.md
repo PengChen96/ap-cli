@@ -3,13 +3,17 @@
 依据接口定义，帮助你快速的完成接口模拟工作。
 
 ### 目录
+<!-- toc -->
+
 - [开始](#开始)
 - [使用](#使用)
-  * [通过js方式生成数据](#通过js方式生成数据)
-  * [通过swagger文件模拟数据](#通过swagger文件模拟数据)
-  * [通过正则匹配指定要模拟的文件](#通过正则匹配指定要模拟的文件)
+  * [通过js方式模拟数据](#1.通过js方式模拟数据)
+  * [通过swagger文件模拟数据](#2.通过swagger文件模拟数据)
+  * [通过正则匹配指定要模拟的文件](#3.通过正则匹配指定要模拟的文件)
 - [CLI用法](#CLI用法)
 - [完整模板及说明](#完整模板及说明)
+
+<!-- tocstop -->
 
 ### 开始
 下载ap-cli
@@ -33,7 +37,7 @@ $ npm install ap-cli -g
 ```
 $ ap-cli -m data.json
 ```
-现在打开http://localhost:3000/api/get/index，你会得到
+现在打开http://localhost:3000/api/get/index ，你会得到
 ```
 { "name": "pc", "status": "success" }
 ```
@@ -41,7 +45,7 @@ $ ap-cli -m data.json
 json模板格式查看[完整模板及说明](#完整模板及说明)
 
 ### 使用
-#### 1. 通过js方式生成数据ss
+#### 1.通过js方式模拟数据
 格式查看[完整模板及说明](#完整模板及说明)
 ##### data.js
 ```javascript
@@ -73,7 +77,7 @@ $ ap-cli -m data.js
 ##### 查看接口
 http://localhost:3000/api/get/userList
 
-#### 2. 通过swagger文件模拟数据
+#### 2.通过swagger文件模拟数据
 这种方式主要是通过swagger生成一个xx_new.json文件，然后进行模拟数据
 ```
 # 运行会生成一个swagger_new.json文件
@@ -82,7 +86,7 @@ $ ap-cli -s swagger.json
 $ ap-cli -m swagger_new.json
 ```
 
-#### 3. 通过正则匹配指定要模拟的文件
+#### 3.通过正则匹配指定要模拟的文件
 当前目录下有3个文件a1.json、a2.js、b1.js,你可以通过正则只模拟a1.json和a2.js文件的数据。
 ```
 $ ap-cli -m all -r /^a/
