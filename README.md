@@ -2,6 +2,11 @@
 <!--[![NPM version](https://img.shields.io/npm/v/ap-cli.svg?style=flat)](https://www.npmjs.com/package/ap-cli)-->
 > 依据接口定义，帮助你快速的完成接口模拟工作。
 
+**主要功能：**  
+- [x] 通过json、js、swagger文件模拟接口数据
+- [x] 通过正则匹配指定需要mock的文件
+- [x] 生成简单markdown接口文档
+
 ## 目录
 <!-- toc -->
 
