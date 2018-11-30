@@ -5,6 +5,7 @@ const cfs = require('../../../common/cfs');
 const Logger = require('../../../common/logger');
 const Route = require('../route');
 const config = require('../../../config');
+const path = require('path');
 const { PROJ } = config;
 
 /**
@@ -12,7 +13,8 @@ const { PROJ } = config;
  * @param fileName 文件名  example: exam.json
  */
 const readFileInitRouter = (fileName, router) => {
-  cfs.readFile(`${PROJ}/${fileName}`).then((result) => {
+  const filePath = path.join(PROJ, fileName);
+  cfs.readFile(filePath).then((result) => {
     const resp = JSON.parse(result);
     Logger.SUCCESS(`[${fileName}] 添加 ${resp.length} 个接口`);
     resp.forEach((itemRouteData) => {
@@ -24,7 +26,7 @@ const readFileInitRouter = (fileName, router) => {
     Logger.ERROR(`${fileName}--readFileInitRouter--${error}`);
   });
 };
-
+ 
 module.exports = {
   readFileInitRouter
 };

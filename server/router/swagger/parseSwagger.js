@@ -53,6 +53,17 @@ const getItemRouteData = (key_url, obj) => {
 };
 
 /**
+ * 格式化接口请求参数（return parameters）
+ * @param type_data "post"对象的数据 example: {"tags":[], ...}
+ */
+formatParametersData = (type_data) => {
+  const { parameters } = type_data;
+  parameters.forEach((item) => {
+
+  });
+};
+
+/**
  *  格式化接口响应数据（return response）
  *  @param type_data "post"对象的数据 example: {"tags":[], ...}
  */
