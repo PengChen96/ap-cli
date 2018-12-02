@@ -4,6 +4,7 @@
 const Logger = require('../../../common/logger');
 const Route = require('../route');
 const config = require('../../../config');
+const path = require('path');
 const { PROJ } = config;
 
 /**
@@ -12,8 +13,9 @@ const { PROJ } = config;
  * @param router koa2路由
  */
 const requireJsInitRouter = (fileName, router) => {
+  const filePath = path.join(PROJ, fileName);
   // 引入js文件
-  const FunObj = require(`${PROJ}/${fileName}`);
+  const FunObj = require(filePath);
   Logger.SUCCESS(`[${fileName}] 添加 ${Object.keys(FunObj).length} 个接口`);
   for (const funName in FunObj) {
     const itemRouteData = FunObj[funName](); // 接口数据
