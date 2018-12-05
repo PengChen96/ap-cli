@@ -39,13 +39,15 @@ const getItemRouteData = (key_url, obj) => {
     let type_data = obj[key_type];
     // 接口概述
     const { summary } = type_data;
+    // 格式化 接口请求参数
+    let parameters = formatParametersData(type_data);
     // 格式化 接口响应数据
     let response = formatResponseData(type_data);
     itemRouteData = {
       summary: summary,
       url: key_url,
       method: key_type,
-      parameters: '无',
+      parameters: parameters,
       response: response
     }
   }
@@ -57,10 +59,35 @@ const getItemRouteData = (key_url, obj) => {
  * @param type_data "post"对象的数据 example: {"tags":[], ...}
  */
 formatParametersData = (type_data) => {
-  const { parameters } = type_data;
+  let parametersData = {
+    "parsing": true,
+    "child": []
+  };
+  const { parameters = [] } = type_data;
   parameters.forEach((item) => {
-
+    const obj = {
+      "key": item.name,
+      "type": item.type,
+      "required": item.required,
+      "description": item.description,
+      "value": ''
+    }
+    const {schema} = item;
+    if (schema) {
+      if (schema.type && schema.type === 'array') {
+        obj.type = schema.type;
+        const ref = schema.items ? schema.items['$ref'] : '';
+        obj.value = [modelJS.dealRef(ref, GlobalSwaggerData)];
+      } 
+      else {
+        obj.type = schema.type;
+        const ref = schema['$ref'] ? schema['$ref'] : '';
+        obj.value = modelJS.dealRef(ref, GlobalSwaggerData);
+      }
+    }
+    parametersData.child.push(obj);
   });
+  return parametersData;
 };
 
 /**

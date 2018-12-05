@@ -16,12 +16,13 @@ const dealRef = (ref, swaggerData) => {
       if (properties) {
         for (let key in properties) {
           if (properties[key].type) {
-            result[key] = convertType(properties, key, swaggerData);
+            result[key] = convertType(ref, properties, key, swaggerData);
           }
           /**
            * 处理 {"data": {"$ref": "#/definitions/VO"} 这种情况
+           * properties[key]['$ref'] !== ref，判断一下这个【$refs】和上一个【$refs】是否一样，避免死循环
            */
-          if (properties[key]['$ref']) {
+          if (properties[key]['$ref'] && properties[key]['$ref'] !== ref) {
             result[key] = dealRef(properties[key]['$ref'], swaggerData);
           }
         }
@@ -49,7 +50,7 @@ const queryDataVo = (ref, swaggerData) => {
 /**
  *  根据type转换成假数据
  */
-const convertType = (properties, key, swaggerData) => {
+const convertType = (ref, properties, key, swaggerData) => {
   let data = {};
   const { type, items } = properties[key];
   if (type == 'string') {
@@ -68,8 +69,8 @@ const convertType = (properties, key, swaggerData) => {
     data = {};
   }
   if (type == 'array') {
-    // 最好判断一下这个【$refs】和上一个【$refs】是否一样，避免死循环
-    if (items && items['$ref']) {
+    // items['$ref']!==ref，判断一下这个【$refs】和上一个【$refs】是否一样，避免死循环
+    if (items && items['$ref'] && items['$ref']!==ref) {
       data = [dealRef(items['$ref'], swaggerData)];
     } else {
       // 这个情况考虑下 "items": {"type": "object"}
