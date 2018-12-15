@@ -47,8 +47,10 @@ const createMd = (itemRouteData, fileName = "接口文档.md") => {
   const filePath = `${ config.PROJ }/${ date }${ fileName }`;
   // 设置默认值
   const RD = DefaultRouteData.defaultSet(itemRouteData);
+  // 请求参数table
+  let requestParamTable = RD.paramsTable.join('');
   // 请求参数
-  let requestParam = `\`\`\`\n${utils.formatJson(RD.parameters)}\`\`\``;
+  let requestParam = `\`\`\`\n${utils.formatJson(RD.parameters.child || RD.parameters)}\`\`\``;
   if (RD.parameters.parsing && RD.parameters.child) {
     requestParam = parseParam(RD.parameters.child).join('');
   }
@@ -60,6 +62,7 @@ const createMd = (itemRouteData, fileName = "接口文档.md") => {
 ##### http请求方式
 > ${ RD.method }
 ##### 接口请求参数
+${ requestParamTable }
 ${ requestParam }
 ##### 接口响应数据
 \`\`\`

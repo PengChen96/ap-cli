@@ -4,6 +4,7 @@
 /* global module */
 
 const modelJS = require('./model');
+const mdTable = require('./mdTable');
 
 let GlobalSwaggerData = {};
 
@@ -39,6 +40,8 @@ const getItemRouteData = (key_url, obj) => {
     let type_data = obj[key_type];
     // 接口概述
     const { summary } = type_data;
+    // 接口请求参数 md数组
+    let paramsTable = formatParametersToMdArr(type_data);
     // 格式化 接口请求参数
     let parameters = formatParametersData(type_data);
     // 格式化 接口响应数据
@@ -47,12 +50,44 @@ const getItemRouteData = (key_url, obj) => {
       summary: summary,
       url: key_url,
       method: key_type,
-      parameters: parameters,
-      response: response
+      paramsTable,
+      parameters,
+      response,
     }
   }
   return itemRouteData;
 };
+
+/**
+ * 请求参数转换为表格（返回md table数组）
+ * @param type_data "post"对象的数据 example: {"tags":[], ...}
+ */
+formatParametersToMdArr = (type_data) => {
+  let mdArray = ['| 字段 | 类型 | 是否必须 | 说明 |\n|----|----|----|----|\n'];
+  const { parameters = [] } = type_data;
+  parameters.forEach((item) => {
+    let itemParamArray = [];
+    let { name='字段', type='object', required='false', description='说明', schema} = item;
+    if (schema) {
+      type = schema.type ? schema.type : 'object';
+      const faRowArr = [`|${name}|${type}|${required}|${description}|\n`];
+      let mdRowArr = [];
+      if (schema.type === 'array') {
+        const ref = schema.items ? schema.items['$ref'] : '';
+        mdRowArr = mdTable.dealRef(ref, GlobalSwaggerData);
+      } else {
+        const ref = schema['$ref'] ? schema['$ref'] : '';
+        mdRowArr = mdTable.dealRef(ref, GlobalSwaggerData);
+      }
+      itemParamArray = [...faRowArr, ...mdRowArr];
+    } else {
+      const row = `|${name}|${type}|${required}|${description}|\n`;
+      itemParamArray.push(row);
+    }
+    mdArray = [...mdArray, ...itemParamArray];
+  });
+  return mdArray;
+}
 
 /**
  * 格式化接口请求参数（return parameters）
@@ -60,30 +95,27 @@ const getItemRouteData = (key_url, obj) => {
  */
 formatParametersData = (type_data) => {
   let parametersData = {
-    "parsing": true,
+    "parsing": false,
     "child": []
   };
   const { parameters = [] } = type_data;
   parameters.forEach((item) => {
-    const obj = {
-      "key": item.name,
-      "type": item.type,
-      "required": item.required,
-      "description": item.description,
-      "value": ''
-    }
-    const {schema} = item;
+    const obj = {};
+    const { schema } = item;
     if (schema) {
       if (schema.type && schema.type === 'array') {
         obj.type = schema.type;
         const ref = schema.items ? schema.items['$ref'] : '';
-        obj.value = [modelJS.dealRef(ref, GlobalSwaggerData)];
-      } 
+        obj[item.name] = [modelJS.dealRef(ref, GlobalSwaggerData)];
+      }
       else {
         obj.type = schema.type;
         const ref = schema['$ref'] ? schema['$ref'] : '';
-        obj.value = modelJS.dealRef(ref, GlobalSwaggerData);
+        obj[item.name] = modelJS.dealRef(ref, GlobalSwaggerData);
       }
+    } else {
+      // TODO （应该判断一下类型，再赋值的）
+      obj[item.name] = 'string';
     }
     parametersData.child.push(obj);
   });
