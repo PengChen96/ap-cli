@@ -38,6 +38,8 @@ const getItemRouteData = (key_url, obj) => {
   for (let key_type in obj) {
     // type_data: "post"对象的数据  example: {"tags":[], ...}
     let type_data = obj[key_type];
+    // tags
+    const tags = type_data.tags[0];
     // 接口概述
     const { summary } = type_data;
     // 接口请求参数 md数组
@@ -47,7 +49,8 @@ const getItemRouteData = (key_url, obj) => {
     // 格式化 接口响应数据
     let response = formatResponseData(type_data);
     itemRouteData = {
-      summary: summary,
+      tags,
+      summary,
       url: key_url,
       method: key_type,
       paramsTable,

@@ -23,7 +23,8 @@ const route = (itemRouteData, router) => {
  */
 const init = (itemRouteData, router) => {
   // 生成markdown接口文档
-  Markdown.createMd(itemRouteData);
+  const fileName = `${ itemRouteData.tags }.md`;
+  Markdown.createMd(itemRouteData, fileName);
   // 初始化接口
   route(itemRouteData, router);
 };

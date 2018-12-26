@@ -43,8 +43,13 @@ const parseParam = (child, array = [], level = -1) => {
  */
 const createMd = (itemRouteData, fileName = "接口文档.md") => {
   const date = utils.getCurrentDate();
+  const fileDir = `${ config.PROJ }/${ date }`;
+  // 创建文件夹
+  if (!cfs.existsSync(fileDir)) {
+    cfs.mkdirSync(fileDir);
+  }
   // 文件路径
-  const filePath = `${ config.PROJ }/${ date }${ fileName }`;
+  const filePath = `${ fileDir }/${ fileName }`;
   // 设置默认值
   const RD = DefaultRouteData.defaultSet(itemRouteData);
   // 请求参数table

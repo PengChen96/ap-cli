@@ -18,6 +18,42 @@ const cwatch = (path) => {
   });
 }
 
+// 判断文件夹是否存在（同步）
+const existsSync = (path) => {
+  return fs.existsSync(path);
+};
+
+// 创建文件夹（同步）
+const mkdirSync = (path) => {
+  return fs.mkdirSync(path);
+};
+
+// 判断文件夹是否存在 (异步)
+const exists = (path) => {
+  return new Promise((resolve, reject) => {
+    fs.exists(path, function(err, data){
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+};
+
+// 创建文件夹(异步)
+const mkdir = (path) => {
+  return new Promise((resolve, reject) => {
+    fs.mkdir(path, function(err, data){
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+};
+
 // 读取path下【文件夹的名字和文件名】  返回 Array
 const readdir = (path) => {
   return new Promise((resolve, reject) => {
@@ -71,6 +107,10 @@ const writeFile = (path, text) => {
 
 module.exports = {
   cwatch,
+  existsSync,
+  mkdirSync,
+  exists,
+  mkdir,
   readdir,
   readFile,
   appendFile,
