@@ -108,12 +108,18 @@ $ ap-cli -m all -r /^a/
 ## 完整模板及说明
 不管是json、js、swagger文件，最终都是转换成下面的格式进行处理。
 ##### 示例
-```
+```json
 [
   {
+    "tags": "tags标签名",
     "summary": "获取用户信息接口json",
     "url": "/api/get/userinfo",
     "method": "post",
+    "paramsTable": [
+      "| 字段 | 类型 | 是否必须 | 说明 |\n",
+      "|------|------|------|------|\n",
+      "| id | string | 是 | 无 |\n"
+    ],
     "parameters": {
       "parsing": true,
       "child": [
@@ -148,6 +154,8 @@ $ ap-cli -m all -r /^a/
 |3| method | string | http请求方式 | get | 是 | 无 |
 |4| parameters | / | 接口请求参数 | 无 | 否 | 可显示为表格（详见下1-1.parameters属性说明） |
 |5| response | / | 接口响应数据 | 无 | 是 | 无 |
+|6| tags | string | 接口文档名称 | 无 | 否 | 无 |
+|6| paramsTable | array | md表格 | 无 | 否 | 无 |
 
 ##### 1-1. parameters属性说明
 | # | 字段 | 类型 | 说明 | 默认 | 是否必须 | 备注 |
@@ -164,4 +172,5 @@ $ ap-cli -m all -r /^a/
 |4| required | boolean | 是否必须 | false | 否 |
 |5| child | object [] | 子节点数据 | 无 | 否 |
 
-##
+## 更新日志
+## [CHANGELOG](./CHANGELOG.md)
