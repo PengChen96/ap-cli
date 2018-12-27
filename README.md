@@ -152,10 +152,10 @@ $ ap-cli -m all -r /^a/
 |1| summary | string | 接口概述 | xxx接口 | 否 | 无 |
 |2| url | string | 接口地址 | /api | 是 | 无 |
 |3| method | string | http请求方式 | get | 是 | 无 |
-|4| parameters | / | 接口请求参数 | 无 | 否 | 可显示为表格（详见下1-1.parameters属性说明） |
-|5| response | / | 接口响应数据 | 无 | 是 | 无 |
-|6| tags | string | 接口文档名称 | 无 | 否 | 无 |
-|6| paramsTable | array | md表格 | 无 | 否 | 无 |
+|4| paramsTable | array | 接口请求参数md表格 | 无 | 否 | 无 |
+|5| parameters | / | 接口请求参数 | 无 | 否 | 可显示为表格（详见下1-1.parameters属性说明） |
+|6| response | / | 接口响应数据 | 无 | 是 | 无 |
+|7| tags | string | 接口文档名称 | 无 | 否 | 无 |
 
 ##### 1-1. parameters属性说明
 | # | 字段 | 类型 | 说明 | 默认 | 是否必须 | 备注 |
@@ -173,4 +173,4 @@ $ ap-cli -m all -r /^a/
 |5| child | object [] | 子节点数据 | 无 | 否 |
 
 ## 更新日志
-## [CHANGELOG](./CHANGELOG.md)
+### [CHANGELOG](./CHANGELOG.md)
