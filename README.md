@@ -25,7 +25,11 @@
 ```
 $ npm install ap-cli -g
 ```
-创建data.json
+生成模板
+```
+$ ap-cli init data
+```
+data.json(模板示例)
 ```
 [
   {
