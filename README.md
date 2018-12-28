@@ -29,7 +29,7 @@ $ npm install ap-cli -g
 ```
 $ ap-cli init data
 ```
-data.json(模板示例)
+data.json
 ```
 [
   {
