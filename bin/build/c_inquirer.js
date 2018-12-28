@@ -5,6 +5,7 @@ const inquirer = require('inquirer');
 
 const cfs = require('../../common/cfs');
 const template = require('./tpl/index');
+const Logger = require('../../common/logger');
 const config = require('../../config');
 const path = require('path');
 const { PROJ } = config;
@@ -32,7 +33,11 @@ const initTpl = (templateName) => {
     if (result.type === 'js') {
       fileContent = template.jsTpl;
     }
-    cfs.writeFile(filePath, fileContent);
+    cfs.writeFile(filePath, fileContent).then(data => {
+      if (data) {
+        Logger.SUCCESS('generate template success');
+      }
+    });
   })
 };
 
