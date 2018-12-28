@@ -13,9 +13,9 @@ describe('#test.js', () => {
 });
 
 // TEST swagger convert to json template
-describe('#swagger_index.js', () => {
-  describe('#generateJsonTpl()', () => {
-    it('should generate json template without error', () => {
+describe('#swagger_index.js', function() {
+  describe('#generateJsonTpl()', function() {
+    it('should generate json template without error', function() {
       const swagger = require('../server/router/swagger/index');
       swagger.convertToJsonTpl('/test/sw_test_file.json');
     });
@@ -23,9 +23,9 @@ describe('#swagger_index.js', () => {
 });
 
 // TEST json template convert to markdown file
-describe('#markdown_index.js', () => {
-  describe('#generateMdFile()', () => {
-    it('should md file without error', () => {
+describe('#markdown_index.js', function() {
+  describe('#generateMdFile()', function() {
+    it('should md file without error', function() {
       const markdown = require('../server/router/markdown/index');
       const mdTestTpl = require('./md_test_file.json');
       markdown.createMd(mdTestTpl[0], 'interFace.md', "test");
