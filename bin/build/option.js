@@ -1,10 +1,9 @@
 /* global require */
 /* global module */
 /* global process */
-
 const program = require('commander');
 const package = require('../../package');
-// const path = require('path');
+const cInquirer = require('./c_inquirer');
 
 /* eslint-disable import/no-dynamic-require */
 // const packages = require(path.resolve(PROJ, 'package.json'));
@@ -20,10 +19,11 @@ program.version(package.version)
   .option('-p, --port [port]', 'Set port');
 
 program
-  .command('init <project>')
-  .description('init project')
-  .action((projectName) => {
-    console.log(`init ${ projectName }`);
+  .command('init <template>')
+  .description('init template')
+  .action((template) => {
+    console.log(`init template`);
+    cInquirer.initTpl(template);
   });
 
 program.parse(process.argv);

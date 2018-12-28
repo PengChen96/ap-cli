@@ -5,6 +5,7 @@ const cfs = require('../../../common/cfs');
 const Logger = require('../../../common/logger');
 const parseSwagger = require('./parseSwagger');
 const config = require('../../../config');
+const path = require('path');
 const { PROJ } = config;
 
 /**
@@ -12,10 +13,11 @@ const { PROJ } = config;
  * @param fileName 需转换的swagger.json文件名
  */
 const convertToJsonTpl = (fileName) => {
-  cfs.readFile(`${PROJ}/${fileName}`).then((result) => {
+  const filePath = path.join(PROJ, fileName);
+  cfs.readFile(filePath).then((result) => {
     const resp = JSON.parse(result);
     // 要写入的新文件
-    const filePath = `${PROJ}\\${fileName.split('.')[0]}_new.json`;
+    const filePath = `${PROJ}\\${fileName.split('.').reverse()[1]}_tpl.json`;
     // 要写入的内容
     const content = parseSwagger.formatSwaggerData(resp);
     cfs.writeFile(filePath, JSON.stringify(content)).then((data) => {
@@ -32,4 +34,4 @@ const convertToJsonTpl = (fileName) => {
 
 module.exports = {
   convertToJsonTpl
-}
+};

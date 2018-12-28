@@ -1,0 +1,123 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Swagger Test Demo",
+        "version": "0.0.1",
+        "title": "Swagger测试API接口",
+        "contact": {
+            "name": "ap-cli"
+        },
+        "license": {}
+    },
+    "host": "/",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "接口文档",
+            "description": "xxx Controller"
+        }
+    ],
+    "paths": {
+        "/api/queryInfo": {
+            "get": {
+                "tags": [
+                    "swagger test 接口集合"
+                ],
+                "summary": "查询信息",
+                "operationId": "queryInfoGET",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "infoVO",
+                        "description": "infoVO",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/infoVO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse«boolean»"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "infoVO": {
+            "type": "object",
+            "properties": {
+                "babhList": {
+                    "type": "array",
+                    "description": "备案编号",
+                    "items": {
+                        "$ref": "#/definitions/ApiResponse«boolean»"
+                    }
+                },
+                "zrrdah": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "自然人档案号"
+                }
+            }
+        },
+        "ApiResponse«boolean»": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "boolean"
+                },
+                "objectVo": {
+                    "$ref": "#/definitions/objVo"
+                },
+                "objectVo2": {
+                    "$ref": "#/definitions/objVo"
+                },
+                "objectArrayVo": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/objVo"
+                    }
+                }
+            }
+        },
+        "objVo": {
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "string",
+					"description": "代码"
+				},
+				"name": {
+					"type": "string",
+					"description": "名称"
+				}
+			}
+		}
+    }
+}

@@ -3,22 +3,30 @@
 /* global require */
 
 const shell = require('shelljs');
-const commander = require('./build/option.js');
 const config = require('../config');
 const Logger = require('../common/logger');
 
-// Logger.TRACE('****** API MOCK CLI ******');
-// Logger.DEBUG('****** API MOCK CLI ******');
-// Logger.INFO('****** API MOCK CLI ******');
-// Logger.WARN('****** API MOCK CLI ******');
-// Logger.ERROR('****** API MOCK CLI ******');
-Logger.SUCCESS('****** API MOCK CLI ******');
-
+Logger.SUCCESS(`
+             _______                  
+            /@@@@@@@\\           @@@@@                 @@@@@   @@@@      ;;;;      
+           /@@@@_@@@@\\          @@@@@@@             @@@@@@@   @@@@      ;;;;   
+          /@@@@/ \\@@@@\\        @@@  @@@           @@@@@@@    @@@@      @@@@       
+         /@@@@/   \\@@@@\\       @@@   @@@  @@@@@  @@@@@@      @@@@      @@@@       
+        /@@@@/_____\\@@@@\\      @@@   @@@  @@@@@ @@@@@        @@@@      @@@@      
+       /@@@@@@@@@@@@@@@@@\\      @@@  @@@         @@@@@        @@@@      @@@@       
+      /@@@@/—————————\\@@@@\\    @@@@@@'          @@@@@        @@@@      @@@@       
+     /@@@@/           \\@@@@\\   @@@@              @@@@@@      @@@@      @@@@       
+    /@@@@/             \\@@@@\\  @@@@               @@@@@@@@   @@@@@@@@  @@@@
+   /____/               \\____\\ @@@@                 @@@@@@   @@@@@@@@  @@@@       
+`);
+Logger.SUCCESS('****** MOCK REST API SERVER CLI ******');
 Logger.INFO('------------------------------------------↓↓↓');
-// console.log('commander:', commander);
-// console.log('process.argv:', process.argv);
 Logger.INFO(`PROJ（当前目录）: ${ config.PROJ } `);
 Logger.INFO(`ROOT（项目目录）: ${ config.ROOT } `);
+Logger.INFO('------------------------------------------↑↑↑');
+
+
+const commander = require('./build/option.js');
 
 let params = '';
 // $ ap-cli -a [des]
@@ -63,11 +71,12 @@ if (commander.swagger) {
   Logger.INFO(`swagger: ${ commander.swagger }`);
 }
 
-Logger.INFO('------------------------------------------↑↑↑');
 
 // const argv = process.argv.splice(2, process.argv.length - 1);
 // console.log(`node ${config.ROOT}server ${argv.join(' ')}`);
 // finally exec
-Logger.SUCCESS(`node ${config.ROOT}server${params}`);
-shell.exec(`node ${config.ROOT}server${params}`);
+if (params && params !== '') {
+  Logger.SUCCESS(`node ${config.ROOT}server${params}`);
+  shell.exec(`node ${config.ROOT}server${params}`);
+}
 

@@ -40,10 +40,11 @@ const parseParam = (child, array = [], level = -1) => {
  * 生成Markdown接口文档
  * @param itemRouteData 读取的单个路由数据
  * @param fileName 生成文档名称（会在前面加上年月日）
+ * @param dir 目录（for test）
  */
-const createMd = (itemRouteData, fileName = "接口文档.md") => {
+const createMd = (itemRouteData, fileName = "接口文档.md", dir= "") => {
   const date = utils.getCurrentDate();
-  const fileDir = `${ config.PROJ }/${ date }`;
+  const fileDir = `${ config.PROJ }/${ dir }/${ date }`;
   // 创建文件夹
   if (!cfs.existsSync(fileDir)) {
     cfs.mkdirSync(fileDir);

@@ -161,16 +161,16 @@ $ ap-cli -m all -r /^a/
 | # | 字段 | 类型 | 说明 | 默认 | 是否必须 | 备注 |
 |---|------|----|----|----|----|----|
 |1| parsing | boolean | 是否解析 | false | 否 | 无 |
-|2| child | object [] | 子节点 | 无 | 否 | 子节点属性（详见1-1-1.child属性说明） |
+|2| child | object [] | 参数 | 无 | 否 | 无 |
 
-##### 1-1-1. child属性说明
+<!-- ##### 1-1-1. child属性说明
 | # | 字段 | 类型 | 说明 | 默认 | 是否必须 |
 |---|------|----|----|----|----|
 |1| key | string | 字段名称 | - | 是 |
 |2| type | string | 字段类型 | string | 是 |
 |3| description | string | 字段说明 | 无 | 否 |
 |4| required | boolean | 是否必须 | false | 否 |
-|5| child | object [] | 子节点数据 | 无 | 否 |
+|5| child | object [] | 子节点数据 | 无 | 否 | -->
 
 ## 更新日志
 ### [CHANGELOG](./CHANGELOG.md)
