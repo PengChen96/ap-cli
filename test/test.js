@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2018/9/24.
  */
-
+"use strict";
 const assert = require('assert');
 
 describe('#test.js', () => {
