@@ -42,15 +42,13 @@ const parseParam = (child, array = [], level = -1) => {
  * @param fileName 生成文档名称（会在前面加上年月日）
  * @param dir 目录（for test）
  */
-const createMd = (itemRouteData, fileName = "接口文档.md", dir= "") => {
+const createMd = (itemRouteData, dir= "") => {
   const date = utils.getCurrentDate();
   const fileDir = `${ config.PROJ }/${ dir }/${ date }`;
   // 创建文件夹
   if (!cfs.existsSync(fileDir)) {
     cfs.mkdirSync(fileDir);
   }
-  // 文件路径
-  const filePath = `${ fileDir }/${ fileName }`;
   // 设置默认值
   const RD = DefaultRouteData.defaultSet(itemRouteData);
   // 请求参数table
@@ -75,6 +73,9 @@ ${ requestParam }
 ${ utils.formatJson(RD.response) }
 \`\`\`
 `;
+  // 文件路径
+  const { tags } = RD;
+  const filePath = `${ fileDir }/${ tags }.md`;
   // 写入文件（追加方式）
   cfs.appendFile(filePath, content);
 };

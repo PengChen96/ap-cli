@@ -4,6 +4,8 @@
  * 默认值
  */
 const defaultData = {
+  // 接口集合
+  tags: '接口集合',
   // 接口概述
   summary: 'xxx接口',
   // 接口地址（重要）
@@ -17,7 +19,7 @@ const defaultData = {
 };
 
 /**
- * 设置默认值
+ * 设置模板默认值
  * @param itemRouteData 读取的单个路由数据
  */
 const defaultSet = (itemRouteData) => {

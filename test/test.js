@@ -3,9 +3,6 @@
  */
 
 const assert = require('assert');
-const swagger = require('../server/router/swagger/index');
-const markdown = require('../server/router/markdown/index');
-const mdTestTpl = require('./md_test_file.json');
 
 describe('#test.js', () => {
   describe('#sum()', () => {
@@ -19,16 +16,20 @@ describe('#test.js', () => {
 describe('#swagger_index.js', function() {
   describe('#generateJsonTpl()', function() {
     it('should generate json template without error', function() {
-      swagger.convertToJsonTpl('/test/sw_test_file.json');
+      const parseSwagger = require('../server/router/swagger/parseSwagger');
+      const swaggerContent = require('./sw_test_file.json');
+      parseSwagger.formatSwaggerData(swaggerContent);
     });
   });
 });
 
 // TEST json template convert to markdown file
-describe('#markdown_index.js', function() {
-  describe('#generateMdFile()', function() {
-    it('should md file without error', function() {
-      markdown.createMd(mdTestTpl[0], 'interFace.md', "test");
-    });
-  });
-});
+// describe('#markdown_index.js', function() {
+//   describe('#generateMdFile()', function() {
+//     it('should md file without error', function() {
+//       const markdown = require('../server/router/markdown/index');
+//       const mdTestTpl = require('./md_test_file.json');
+//       markdown.createMd(mdTestTpl[0], 'interFace.md', "test");
+//     });
+//   });
+// });
