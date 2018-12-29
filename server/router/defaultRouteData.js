@@ -25,7 +25,7 @@ const defaultData = {
 const defaultSet = (itemRouteData) => {
   const _defaultData = JSON.parse(JSON.stringify(defaultData));
   const data = Object.assign(_defaultData, itemRouteData);
-  return data
+  return data;
 };
 
 module.exports = {

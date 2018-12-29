@@ -12,7 +12,9 @@ const getUserList = () => {
       "|------|------|------|------|\\n",
       "| id | string | 是 | 无 |\\n"
     ],
-    "parameters": "",
+    "parameters": {
+      "id": 10001
+    },
     "response": {
       "count": 100,
       "userList": []
@@ -41,7 +43,9 @@ const jsonTpl = `
       "|------|------|------|------|\\n",
       "| id | string | 是 | 无 |\\n"
     ],
-    "parameters": "",
+    "parameters": {
+      "id": 10001
+    },
     "response": {
       "name": "pc",
       "status": "success"

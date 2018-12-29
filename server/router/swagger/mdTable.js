@@ -21,7 +21,7 @@ const dealRef = (ref, swaggerData, padding = 2) => {
       if (properties) {
         for (let key in properties) {
           if (properties[key].type) {
-            const rowArr = convertRowArr(ref, properties, key, swaggerData, padd);
+            const rowArr = convertRowArr(ref, definitionsVo, key, swaggerData, padd);
             result = [...result, ...rowArr];
           }
           /**
@@ -60,30 +60,33 @@ const queryDataVo = (ref, swaggerData) => {
 /**
  *  转换为md数组（一维数组）
  */
-const convertRowArr = (ref, properties, key, swaggerData, padding) => {
+const convertRowArr = (ref, definitionsVo, key, swaggerData, padding) => {
   let RowArr = [];
   // 空格
   let space = convertToSpace(padding);
-  const { type='object', required='false', description='说明', items } = properties[key];
+  const { properties = {}, required = [] } = definitionsVo;
+  // 是否必须
+  let isNeed = isExist(required, key);
+  const { type='object', description='说明', items } = properties[key];
   if (type == 'array') {
     // items['$ref']!==ref，判断一下这个【$refs】和上一个【$refs】是否一样，避免死循环
     if (items && items['$ref'] && items['$ref']!==ref) {
-      const faRowArr = [`|${space}${key}|${type}|${required}|${description}|\n`];
+      const faRowArr = [`|${space}${key}|${type}|${isNeed}|${description}|\n`];
       const mdRowArr = dealRef(items['$ref'], swaggerData, padding + 2);
       RowArr = [...faRowArr, ...mdRowArr]; 
     } else {
       // 这个情况考虑下 "items": {"type": "object"}
       // RowArr = [];
     }
-  } 
+  }
   else if (type === 'object') {}
   else {
     if (items && items['$ref'] && items['$ref']!==ref) {
-      const faRowArr = [`|${space}${key}|${type}|${required}|${description}|\n`];
+      const faRowArr = [`|${space}${key}|${type}|${isNeed}|${description}|\n`];
       const mdRowArr = dealRef(items['$ref'], swaggerData, padding + 2);
       RowArr = [...faRowArr, ...mdRowArr]; 
     } else {
-      RowArr = [`|${space}${key}|${type}|${required}|${description}|\n`];
+      RowArr = [`|${space}${key}|${type}|${isNeed}|${description}|\n`];
     }
   }
   return RowArr;
@@ -97,6 +100,14 @@ const convertToSpace = (padding) => {
   }
   return space;
 };
+// 数组中某元素是否存在
+const isExist = (arr, key) => {
+  let flag = false;
+  if (~arr.indexOf(key)) {
+    flag = true;
+  }
+  return flag;
+}
 
 module.exports = {
   dealRef
