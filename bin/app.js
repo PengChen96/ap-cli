@@ -5,6 +5,7 @@
 const shell = require('shelljs');
 const config = require('../config');
 const Logger = require('../common/logger');
+const path = require('path');
 //
 // Logger.SUCCESS(`
 //              _______
@@ -35,7 +36,7 @@ if (commander.api) {
   Logger.INFO(`api: ${ commander.api }`);
 }
 
-/* 
+/*
  * $ ap-cli -r [regexp]
  * 正则匹配当前目录要进行mock的文件
  */
@@ -44,7 +45,7 @@ if (commander.regexp) {
   Logger.INFO(`regexp: ${ commander.regexp }`);
 }
 
-/* 
+/*
  * $ ap-cli -m [path]
  * 指定当前目录要进行mock的文件
  */
@@ -53,7 +54,7 @@ if (commander.mock) {
   Logger.INFO(`mock: ${ commander.mock }`);
 }
 
-/* 
+/*
  * $ ap-cli -p [port]
  * 指定mock的api端口（默认3000）
  */
@@ -62,7 +63,7 @@ if (commander.port) {
   Logger.INFO(`port: ${ commander.port }`);
 }
 
-/* 
+/*
  * $ ap-cli -s [swagger]
  * 指定swagger文件生成json模板文件
  */
@@ -76,7 +77,9 @@ if (commander.swagger) {
 // console.log(`node ${config.ROOT}server ${argv.join(' ')}`);
 // finally exec
 if (params && params !== '') {
-  Logger.SUCCESS(`node ${config.ROOT}server${params}`);
-  shell.exec(`node ${config.ROOT}server${params}`);
+  const filePath = path.join(config.ROOT, "server");
+  console.log(filePath, '===');
+  Logger.SUCCESS(`node "${filePath}"${params}`);
+  shell.exec(`node "${filePath}"${params}`);
 }
 
