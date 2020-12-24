@@ -1,10 +1,13 @@
 {
   "name": "ap-cli",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "mock server CLI",
   "main": "index.js",
   "bin": {
     "ap-cli": "bin/app.js"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "test": "mocha",
