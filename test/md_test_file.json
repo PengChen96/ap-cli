@@ -7,26 +7,16 @@
     "paramsTable": [
       "| 字段 | 类型 | 是否必须 | 说明 |\n|----|----|----|----|\n",
       "|infoVO|object|true|infoVO|\n",
-      "|&emsp;&emsp;babhList|array|false|备案编号|\n",
+      "|&emsp;&emsp;list|array|false|-|\n",
       "|&emsp;&emsp;&emsp;&emsp;code|string|false|说明|\n",
-      "|&emsp;&emsp;&emsp;&emsp;data|boolean|false|说明|\n",
-      "|&emsp;&emsp;&emsp;&emsp;objectVo|object|false|说明|\n",
-      "|&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;code|string|false|代码|\n",
-      "|&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;name|string|false|名称|\n",
-      "|&emsp;&emsp;&emsp;&emsp;objectVo2|object|false|说明|\n",
-      "|&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;code|string|false|代码|\n",
-      "|&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;name|string|false|名称|\n",
-      "|&emsp;&emsp;&emsp;&emsp;objectArrayVo|array|false|说明|\n",
-      "|&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;code|string|false|代码|\n",
-      "|&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;name|string|false|名称|\n",
-      "|&emsp;&emsp;zrrdah|integer|false|自然人档案号|\n"
+      "|&emsp;&emsp;&emsp;&emsp;data|boolean|false|说明|\n"
     ],
     "parameters": {
       "parsing": false,
       "child": [
         {
           "infoVO": {
-            "babhList": [
+            "list": [
               {
                 "code": "string",
                 "data": false,

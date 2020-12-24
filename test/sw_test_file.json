@@ -69,9 +69,9 @@
         "infoVO": {
             "type": "object",
             "properties": {
-                "babhList": {
+                "list": {
                     "type": "array",
-                    "description": "备案编号",
+                    "description": "描述",
                     "items": {
                         "$ref": "#/definitions/ApiResponse«boolean»"
                     }
@@ -79,7 +79,7 @@
                 "zrrdah": {
                     "type": "integer",
                     "format": "int64",
-                    "description": "自然人档案号"
+                    "description": "描述"
                 }
             }
         },

@@ -1,16 +1,13 @@
 [
     {
-        "summary": "删除非货币性资产投资",
-        "url": "/dt/fhbxzctc/deleteFhbxzctc",
+        "summary": "汇总",
+        "url": "/api",
         "method": "get",
         "paramsTable": [
             "| 字段 | 类型 | 是否必须 | 说明 |\n|----|----|----|----|\n",
-            "|sbFhbzctzfqjnBaDeleteVO|object|true|sbFhbzctzfqjnBaDeleteVO|\n",
-            "|&emsp;&emsp;babhList|array|false|备案编号|\n",
             "|&emsp;&emsp;code|string|false|说明|\n",
             "|&emsp;&emsp;data|boolean|false|说明|\n",
-            "|&emsp;&emsp;message|string|false|说明|\n",
-            "|&emsp;&emsp;zrrdah|integer|false|自然人档案号|\n"
+            "|&emsp;&emsp;message|string|false|说明|\n"
         ],
         "parameters": {
             "parsing": false,
