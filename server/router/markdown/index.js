@@ -52,7 +52,7 @@ const createMd = (itemRouteData, dir= "") => {
   // 设置默认值
   const RD = DefaultRouteData.defaultSet(itemRouteData);
   // 请求参数table
-  let requestParamTable = RD.paramsTable.join('');
+  let requestParamTable = RD.paramsTable && RD.paramsTable.join('');
   // 请求参数
   let requestParam = `\`\`\`\n${utils.formatJson(RD.parameters.child || RD.parameters)}\`\`\``;
   if (RD.parameters.parsing && RD.parameters.child) {

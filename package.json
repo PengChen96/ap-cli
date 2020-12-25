@@ -1,8 +1,16 @@
 {
   "name": "ap-cli",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "mock server CLI",
   "main": "index.js",
+  "files": [
+    "bin",
+    "common",
+    "server",
+    "config.js",
+    "CHANGELOG.md",
+    "README.md"
+  ],
   "bin": {
     "ap-cli": "bin/app.js"
   },
