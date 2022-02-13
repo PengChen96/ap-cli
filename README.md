@@ -1,4 +1,7 @@
-# ap-cli [![npm version](https://badge.fury.io/js/ap-cli.svg)](http://badge.fury.io/js/ap-cli) [![Build Status](https://travis-ci.org/PengChen96/ap-cli.svg?branch=master)](https://travis-ci.org/PengChen96/ap-cli) [![NPM downloads](http://img.shields.io/npm/dm/ap-cli.svg?style=flat-square)](https://www.npmjs.com/package/ap-cli)  
+# ap-cli 
+[![npm version](https://badge.fury.io/js/ap-cli.svg)](http://badge.fury.io/js/ap-cli) 
+[![Build Status](https://api.travis-ci.com/PengChen96/ap-cli.svg?branch=master)](https://travis-ci.org/PengChen96/ap-cli) 
+[![NPM downloads](http://img.shields.io/npm/dm/ap-cli.svg?style=flat-square)](https://www.npmjs.com/package/ap-cli)  
 <!--[![NPM version](https://img.shields.io/npm/v/ap-cli.svg?style=flat)](https://www.npmjs.com/package/ap-cli)-->
 > 依据接口定义，帮助你快速的完成接口模拟工作。
 
